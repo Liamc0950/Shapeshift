@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Shape Shift"
-run/main_scene="res://Player/sandbox.tscn"
+run/main_scene="res://Levels/sandbox.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -45,5 +45,4 @@ IceAttack={
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

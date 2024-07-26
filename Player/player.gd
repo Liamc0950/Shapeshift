@@ -6,10 +6,12 @@ const JUMP_VELOCITY = -400.0
 
 @onready var anim_tree = $AnimationTree
 @onready var ice_particles = $IceParticles
-
+@onready var health_component = $HealthComponent
+@onready var sprite = $Sprite2D
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
 
 
 func _physics_process(delta):
@@ -26,12 +28,12 @@ func _physics_process(delta):
 
 
 	#Change rotatation
-	if direction:
-		var desired_rotation_y = atan2(-velocity.x, velocity.y)
-		self.rotation = desired_rotation_y
+	#if direction:
+		#var desired_rotation_y = atan2(-velocity.x, velocity.y)
+		#self.rotation = desired_rotation_y
 		
 	velocity = direction * SPEED
-	anim_tree.set("parameters/Move/blend_position", abs(velocity))
+	anim_tree.set("parameters/Move/blend_position", velocity)
 	
 	move_and_slide()
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://cnuw2epdkrvpr"]
+[gd_scene load_steps=27 format=3 uid="uid://cnuw2epdkrvpr"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_01663"]
 [ext_resource type="Texture2D" uid="uid://b5v7k6gmi6gs8" path="res://Assets/Sprites/Hero.png" id="2_wioyg"]
 [ext_resource type="PackedScene" uid="uid://g3w2ryv5n8cy" path="res://Particles/IceParticles.tscn" id="3_2cxk7"]
+[ext_resource type="PackedScene" uid="uid://ck45al0bcafha" path="res://Components/Health/HealthComponent.tscn" id="4_6pu6g"]
 
 [sub_resource type="Animation" id="Animation_vqq7g"]
 resource_name = "Attack"
@@ -22,26 +23,66 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:skew")
+tracks/1/path = NodePath("Sprite2D:skew")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.5),
+"times": PackedFloat32Array(0, 0.3, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 0.349066, 0.0]
+"values": [0.0, 0.387463, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:rotation")
+tracks/2/path = NodePath("Sprite2D:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+
+[sub_resource type="Animation" id="Animation_nee5o"]
+resource_name = "IceAttack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, 3.78562]
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.387463, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
 }
 
 [sub_resource type="Animation" id="Animation_yh1ep"]
@@ -50,7 +91,7 @@ length = 4.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath(".:skew")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -59,6 +100,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, -0.188496, 0.139626, -0.193732, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.211185, -0.141372, 0.247837, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.015, 0.015)]
 }
 
 [sub_resource type="Animation" id="Animation_wxuas"]
@@ -77,10 +142,22 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, 6.28319]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.015, 0.015)]
+}
 
 [sub_resource type="Animation" id="Animation_lxmx0"]
 resource_name = "Walk"
-length = 4.0
+length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -89,23 +166,7 @@ tracks/0/path = NodePath("Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 6.28319]
-}
-
-[sub_resource type="Animation" id="Animation_kubj7"]
-resource_name = "IceAttack"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 6.28319]
@@ -113,34 +174,83 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:skew")
+tracks/1/path = NodePath("Sprite2D:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0, 0.349066, 0.0]
+"values": [Vector2(0.015, 0.015)]
 }
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"values": []
+
+[sub_resource type="Animation" id="Animation_edda8"]
+resource_name = "Walk_Down"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.28319, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.015, 0.015)]
+}
+
+[sub_resource type="Animation" id="Animation_bnrhk"]
+resource_name = "Walk_Left"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.28319, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.015, 0.015)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qcmg1"]
 _data = {
 "Attack": SubResource("Animation_vqq7g"),
-"IceAttack": SubResource("Animation_kubj7"),
+"IceAttack": SubResource("Animation_nee5o"),
 "Idle": SubResource("Animation_yh1ep"),
 "Run": SubResource("Animation_wxuas"),
-"Walk": SubResource("Animation_lxmx0")
+"Walk": SubResource("Animation_lxmx0"),
+"Walk_Down": SubResource("Animation_edda8"),
+"Walk_Left": SubResource("Animation_bnrhk")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8x40s"]
@@ -161,6 +271,12 @@ animation = &"Walk"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1kk20"]
 animation = &"Walk"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3ky02"]
+animation = &"Walk_Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e2j44"]
+animation = &"Walk_Down"
+
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_d331l"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_n11a5")
 blend_point_0/pos = Vector2(0.5, 4.8)
@@ -172,7 +288,11 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_l2108")
 blend_point_3/pos = Vector2(300.5, 0)
 blend_point_4/node = SubResource("AnimationNodeAnimation_1kk20")
 blend_point_4/pos = Vector2(-0.5, 298.7)
-min_space = Vector2(0, 0)
+blend_point_5/node = SubResource("AnimationNodeAnimation_3ky02")
+blend_point_5/pos = Vector2(-300.5, 7.2)
+blend_point_6/node = SubResource("AnimationNodeAnimation_e2j44")
+blend_point_6/pos = Vector2(1, -300)
+min_space = Vector2(-600, -600)
 max_space = Vector2(600, 600)
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dt7n0"]
@@ -196,12 +316,13 @@ graph_offset = Vector2(-62, 50)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mklwf"]
 
-[node name="Player" type="CharacterBody2D"]
-skew = 0.0091309
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_01663")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.22384
 scale = Vector2(0.015, 0.015)
+skew = -0.105623
 texture = ExtResource("2_wioyg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -213,7 +334,7 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_3puar")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/iceAttack = false
-parameters/Move/blend_position = Vector2(0, 0)
+parameters/Move/blend_position = Vector2(-9.59998, -44.934)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2.11758e-22, 0)
@@ -221,4 +342,6 @@ scale = Vector2(2.43, 2.43)
 shape = SubResource("CircleShape2D_mklwf")
 
 [node name="IceParticles" parent="." instance=ExtResource("3_2cxk7")]
-position = Vector2(-27.8032, -6.00323)
+position = Vector2(0, 0)
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_6pu6g")]
