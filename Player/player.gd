@@ -5,6 +5,8 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
 @onready var anim_tree = $AnimationTree
+@onready var ice_particles = $IceParticles
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -19,11 +21,8 @@ func _physics_process(delta):
 				).normalized()
 
 	if Input.is_action_just_pressed("IceAttack"):
-		anim_tree.set("parameters/conditions/iceAttack", true)
-		anim_tree.set("parameters/conditions/notIceAttack", false)
-		await get_tree().create_timer(0.5).timeout
-		anim_tree.set("parameters/conditions/iceAttack", false)
-		anim_tree.set("parameters/conditions/notIceAttack", true)
+		_ice_attack()
+
 
 
 	#Change rotatation
@@ -35,3 +34,21 @@ func _physics_process(delta):
 	anim_tree.set("parameters/Move/blend_position", abs(velocity))
 	
 	move_and_slide()
+
+
+
+func _ice_attack():
+	#START ANIMAITON
+	anim_tree.set("parameters/conditions/iceAttack", true)
+	anim_tree.set("parameters/conditions/notIceAttack", false)
+		
+	#START PARTICLES
+	ice_particles.emitting = true
+	
+	#WAIT TO COMPLETE
+	await get_tree().create_timer(0.5).timeout
+	
+	#END ANIMAITON
+	anim_tree.set("parameters/conditions/iceAttack", false)
+	anim_tree.set("parameters/conditions/notIceAttack", true)
+	

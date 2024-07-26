@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://cnuw2epdkrvpr"]
+[gd_scene load_steps=22 format=3 uid="uid://cnuw2epdkrvpr"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_01663"]
 [ext_resource type="Texture2D" uid="uid://b5v7k6gmi6gs8" path="res://Assets/Sprites/Hero.png" id="2_wioyg"]
+[ext_resource type="PackedScene" uid="uid://g3w2ryv5n8cy" path="res://Particles/IceParticles.tscn" id="3_2cxk7"]
 
 [sub_resource type="Animation" id="Animation_vqq7g"]
 resource_name = "Attack"
@@ -29,6 +30,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.349066, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.78562]
 }
 
 [sub_resource type="Animation" id="Animation_yh1ep"]
@@ -82,9 +95,49 @@ tracks/0/keys = {
 "values": [0.0, 6.28319]
 }
 
+[sub_resource type="Animation" id="Animation_kubj7"]
+resource_name = "IceAttack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.349066, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qcmg1"]
 _data = {
 "Attack": SubResource("Animation_vqq7g"),
+"IceAttack": SubResource("Animation_kubj7"),
 "Idle": SubResource("Animation_yh1ep"),
 "Run": SubResource("Animation_wxuas"),
 "Walk": SubResource("Animation_lxmx0")
@@ -130,8 +183,8 @@ advance_mode = 2
 advance_condition = &"iceAttack"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4q2io"]
+switch_mode = 2
 advance_mode = 2
-advance_condition = &"notIceAttack"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3puar"]
 states/IceAttack/node = SubResource("AnimationNodeAnimation_8x40s")
@@ -144,7 +197,7 @@ graph_offset = Vector2(-62, 50)
 [sub_resource type="CircleShape2D" id="CircleShape2D_mklwf"]
 
 [node name="Player" type="CharacterBody2D"]
-skew = -0.101808
+skew = 0.0091309
 script = ExtResource("1_01663")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -160,10 +213,12 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_3puar")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/iceAttack = false
-parameters/conditions/notIceAttack = false
 parameters/Move/blend_position = Vector2(0, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2.11758e-22, 0)
 scale = Vector2(2.43, 2.43)
 shape = SubResource("CircleShape2D_mklwf")
+
+[node name="IceParticles" parent="." instance=ExtResource("3_2cxk7")]
+position = Vector2(-27.8032, -6.00323)

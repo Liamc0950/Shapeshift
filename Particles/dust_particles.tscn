@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmyqh4brqp82n"]
+
+[ext_resource type="Texture2D" uid="uid://bs24gqis46o0k" path="res://Assets/Sprites/Particle.png" id="1_nlx30"]
+[ext_resource type="Script" path="res://Particles/IceParticles.gd" id="2_22vh8"]
+
+[sub_resource type="Gradient" id="Gradient_gosou"]
+colors = PackedColorArray(0.443137, 0.933333, 0.866667, 0.396078, 1, 1, 1, 1)
+
+[node name="DustParticles" type="CPUParticles2D"]
+position = Vector2(678, 291)
+amount = 128
+lifetime = 8.0
+preprocess = 8.0
+speed_scale = 0.25
+randomness = 1.0
+lifetime_randomness = 1.0
+texture = ExtResource("1_nlx30")
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 1000)
+gravity = Vector2(2.08165e-12, 300)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+radial_accel_min = 12.47
+radial_accel_max = 69.04
+tangential_accel_min = 0.9
+tangential_accel_max = 43.32
+scale_amount_min = 0.02
+scale_amount_max = 0.03
+color_ramp = SubResource("Gradient_gosou")
+script = ExtResource("2_22vh8")

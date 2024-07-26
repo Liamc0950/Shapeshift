@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bl1a6edlueqj6"]
+[gd_scene load_steps=14 format=3 uid="uid://bl1a6edlueqj6"]
 
 [ext_resource type="PackedScene" uid="uid://cnuw2epdkrvpr" path="res://Player/player.tscn" id="1_riwvm"]
 [ext_resource type="Texture2D" uid="uid://cwtb6bd2ilnn7" path="res://Assets/Background/GridFloor.png" id="2_b1cps"]
 [ext_resource type="Texture2D" uid="uid://bclwwmxqsgmkj" path="res://Assets/Background/Background.png" id="3_an13u"]
+[ext_resource type="PackedScene" uid="uid://cmyqh4brqp82n" path="res://Particles/dust_particles.tscn" id="4_7yes3"]
 
 [sub_resource type="Gradient" id="Gradient_wqypk"]
 colors = PackedColorArray(0.341176, 0.290196, 0.886275, 1, 0.65098, 0, 0.792157, 1)
@@ -25,6 +26,13 @@ size = Vector2(65.151, 4.47873)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6gi78"]
 size = Vector2(93.2446, 8.24943)
 
+[sub_resource type="Environment" id="Environment_k6r3b"]
+background_mode = 3
+adjustment_enabled = true
+adjustment_brightness = 0.01
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_6evye"]
+
 [node name="Sandbox" type="Node2D"]
 
 [node name="Floor" type="Sprite2D" parent="."]
@@ -39,7 +47,7 @@ texture = ExtResource("3_an13u")
 
 [node name="Player" parent="." instance=ExtResource("1_riwvm")]
 position = Vector2(572, 309)
-skew = -0.159063
+skew = -0.173725
 
 [node name="SL Wall" type="StaticBody2D" parent="."]
 position = Vector2(1297, 123)
@@ -96,3 +104,21 @@ shape = SubResource("RectangleShape2D_ch2hs")
 position = Vector2(551.25, 665.5)
 scale = Vector2(15.395, 15.395)
 shape = SubResource("RectangleShape2D_6gi78")
+
+[node name="DustParticles" parent="." instance=ExtResource("4_7yes3")]
+position = Vector2(521, 107)
+speed_scale = 0.08
+spread = 92.27
+gravity = Vector2(2.08165e-12, 100)
+initial_velocity_min = 81.81
+initial_velocity_max = 213.12
+angular_velocity_min = 29.09
+angular_velocity_max = 72.73
+tangential_accel_min = 6.96
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(584, 300)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Camera2D"]
+environment = SubResource("Environment_k6r3b")
+camera_attributes = SubResource("CameraAttributesPractical_6evye")
