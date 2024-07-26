@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3 uid="uid://bl1a6edlueqj6"]
+
+[ext_resource type="PackedScene" uid="uid://cnuw2epdkrvpr" path="res://Player/player.tscn" id="1_riwvm"]
+[ext_resource type="Texture2D" uid="uid://cwtb6bd2ilnn7" path="res://Assets/Background/GridFloor.png" id="2_b1cps"]
+[ext_resource type="Texture2D" uid="uid://bclwwmxqsgmkj" path="res://Assets/Background/Background.png" id="3_an13u"]
+
+[sub_resource type="Gradient" id="Gradient_wqypk"]
+colors = PackedColorArray(0.341176, 0.290196, 0.886275, 1, 0.65098, 0, 0.792157, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mjhdu"]
+gradient = SubResource("Gradient_wqypk")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iouwn"]
+size = Vector2(21.4175, 5.92303)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_phqfl"]
+size = Vector2(5.25985, 26.3431)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dw7ok"]
+size = Vector2(22.7585, 6.23644)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ch2hs"]
+size = Vector2(65.151, 4.47873)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6gi78"]
+size = Vector2(93.2446, 8.24943)
+
+[node name="Sandbox" type="Node2D"]
+
+[node name="Floor" type="Sprite2D" parent="."]
+position = Vector2(571, 456)
+scale = Vector2(0.327083, 0.25)
+texture = ExtResource("2_b1cps")
+
+[node name="Sky" type="Sprite2D" parent="."]
+position = Vector2(593, -73)
+scale = Vector2(0.32975, 0.388636)
+texture = ExtResource("3_an13u")
+
+[node name="Player" parent="." instance=ExtResource("1_riwvm")]
+position = Vector2(572, 309)
+skew = -0.159063
+
+[node name="SL Wall" type="StaticBody2D" parent="."]
+position = Vector2(1297, 123)
+
+[node name="Sprite2D" type="Sprite2D" parent="SL Wall"]
+position = Vector2(-175, -114)
+rotation = -2.35619
+scale = Vector2(1.52958, 822.491)
+skew = -0.785398
+texture = SubResource("GradientTexture1D_mjhdu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SL Wall"]
+position = Vector2(-180.087, 222.464)
+rotation = -2.39285
+scale = Vector2(15.97, 15.97)
+shape = SubResource("RectangleShape2D_iouwn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SL Wall"]
+position = Vector2(-137, 411.65)
+scale = Vector2(15.97, 15.97)
+shape = SubResource("RectangleShape2D_phqfl")
+
+[node name="SR Wall" type="StaticBody2D" parent="."]
+position = Vector2(1297, 123)
+
+[node name="Sprite2D" type="Sprite2D" parent="SR Wall"]
+position = Vector2(-1357, -134)
+rotation = -0.785398
+scale = Vector2(2.47559, 1043.68)
+skew = 0.785398
+texture = SubResource("GradientTexture1D_mjhdu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SR Wall"]
+position = Vector2(-1257.29, 218.713)
+rotation = -0.785398
+scale = Vector2(15.97, 15.97)
+shape = SubResource("RectangleShape2D_dw7ok")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SR Wall"]
+position = Vector2(-1315, 406)
+scale = Vector2(15.97, 15.97)
+shape = SubResource("RectangleShape2D_phqfl")
+
+[node name="US Wall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="US Wall"]
+position = Vector2(531.5, 245.475)
+scale = Vector2(15.395, 15.395)
+shape = SubResource("RectangleShape2D_ch2hs")
+
+[node name="DS Wall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DS Wall"]
+position = Vector2(551.25, 665.5)
+scale = Vector2(15.395, 15.395)
+shape = SubResource("RectangleShape2D_6gi78")
