@@ -1,13 +1,15 @@
 extends CharacterBody2D
 
+@export var spriteTexture:Texture2D
+@export var start_health = 50.0
+@export var speed = 100.0
+@export var damage = 5.0
+
 @onready var anim_tree = $AnimationTree
 @onready var ice_particles = $IceParticles
 @onready var health_component = $HealthComponent
 @onready var sprite = $Sprite2D
-const SPEED = 100.0
-const DAMAGE = 5.0
-const JUMP_VELOCITY = -400.0
-const START_HEALTH = 50.0
+
 
 
 @onready var player = get_tree().get_nodes_in_group("Player")[0]  
@@ -20,7 +22,8 @@ var target_position
 var attacking = false
 
 func ready():
-	health_component.health = START_HEALTH
+	$Sprite2D.texture = spriteTexture
+	health_component.health = start_health
 
 func _physics_process(delta):
 	
@@ -29,7 +32,7 @@ func _physics_process(delta):
 	
 	anim_tree.set("parameters/Move/blend_position", velocity)
 
-	velocity = target_position * SPEED
+	velocity = target_position * speed
 	
 	if(position.distance_to(player_position) > 3 && !attacking):
 		look_at(player_position)
@@ -79,7 +82,7 @@ func _on_player_detector_body_exited(body):
 
 func _on_hit_detector_body_entered(body):
 	if attacking:
-		player.take_damage(DAMAGE)
+		player.take_damage(damage)
 
 
 

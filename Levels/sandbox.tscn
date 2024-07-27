@@ -1,11 +1,24 @@
-[gd_scene load_steps=15 format=3 uid="uid://bl1a6edlueqj6"]
+[gd_scene load_steps=16 format=3 uid="uid://bl1a6edlueqj6"]
 
 [ext_resource type="Texture2D" uid="uid://cwtb6bd2ilnn7" path="res://Assets/Background/GridFloor.png" id="1_ms72j"]
 [ext_resource type="Texture2D" uid="uid://bclwwmxqsgmkj" path="res://Assets/Background/Background.png" id="2_kh2rr"]
 [ext_resource type="PackedScene" uid="uid://cnuw2epdkrvpr" path="res://Player/player.tscn" id="3_2c5p4"]
 [ext_resource type="Texture2D" uid="uid://bs24gqis46o0k" path="res://Assets/Sprites/Particle.png" id="4_mk4og"]
 [ext_resource type="PackedScene" uid="uid://cmyqh4brqp82n" path="res://Particles/dust_particles.tscn" id="5_ufjxf"]
-[ext_resource type="PackedScene" uid="uid://oxv10erglgqu" path="res://Enemies/TriangleEnemy.tscn" id="6_gkb5p"]
+[ext_resource type="PackedScene" uid="uid://4c2lso8rgrhy" path="res://Enemies/BaseEnemy.tscn" id="6_xuwpu"]
+[ext_resource type="Texture2D" uid="uid://blhnokimfcmcy" path="res://Assets/Sprites/Fire_Enemy.png" id="7_loafi"]
+
+[sub_resource type="Environment" id="Environment_amjd8"]
+background_mode = 3
+glow_enabled = true
+glow_levels/5 = 0.0
+glow_intensity = 1.65
+glow_bloom = 0.02
+glow_blend_mode = 1
+glow_hdr_threshold = 1.5
+adjustment_enabled = true
+adjustment_contrast = 1.25
+adjustment_saturation = 1.35
 
 [sub_resource type="Gradient" id="Gradient_wqypk"]
 colors = PackedColorArray(0.341176, 0.290196, 0.886275, 1, 0.65098, 0, 0.792157, 1)
@@ -28,54 +41,30 @@ size = Vector2(65.151, 4.47873)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6gi78"]
 size = Vector2(93.2446, 8.24943)
 
-[sub_resource type="Environment" id="Environment_amjd8"]
-background_mode = 3
-glow_enabled = true
-glow_levels/5 = 0.0
-glow_intensity = 1.65
-glow_bloom = 0.02
-glow_blend_mode = 1
-glow_hdr_threshold = 1.5
-adjustment_enabled = true
-adjustment_contrast = 1.25
-adjustment_saturation = 1.35
-
 [node name="Sandbox" type="Node2D"]
 
-[node name="Floor" type="Sprite2D" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_amjd8")
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="Floor" type="Sprite2D" parent="Level"]
 modulate = Color(0.370364, 0.370365, 0.370364, 1)
 position = Vector2(571, 456)
 scale = Vector2(0.327083, 0.25)
 texture = ExtResource("1_ms72j")
 
-[node name="Sky" type="Sprite2D" parent="."]
+[node name="Sky" type="Sprite2D" parent="Level"]
 modulate = Color(0.404511, 0.404511, 0.404511, 1)
 self_modulate = Color(2, 2, 2, 1)
 position = Vector2(593, -73)
 scale = Vector2(0.333489, 0.383373)
 texture = ExtResource("2_kh2rr")
 
-[node name="Player" parent="." instance=ExtResource("3_2c5p4")]
-position = Vector2(572, 309)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(12.5953, -9.01965)
-scale = Vector2(1, 1.00437)
-skew = 0.0659086
-position_smoothing_enabled = true
-
-[node name="PointLight2D" type="PointLight2D" parent="Player"]
-position = Vector2(0.793884, 4.00531)
-scale = Vector2(1, 1.00265)
-skew = 0.0514286
-color = Color(1, 0.690196, 0.596078, 1)
-shadow_enabled = true
-texture = ExtResource("4_mk4og")
-
-[node name="SL Wall" type="StaticBody2D" parent="."]
+[node name="SL Wall" type="StaticBody2D" parent="Level"]
 position = Vector2(1297, 123)
 
-[node name="Sprite2D" type="Sprite2D" parent="SL Wall"]
+[node name="Sprite2D" type="Sprite2D" parent="Level/SL Wall"]
 modulate = Color(0.505344, 0.505344, 0.505344, 1)
 position = Vector2(-175, -114)
 rotation = -2.35619
@@ -83,21 +72,21 @@ scale = Vector2(1.52958, 822.491)
 skew = -0.785398
 texture = SubResource("GradientTexture1D_mjhdu")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SL Wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/SL Wall"]
 position = Vector2(-180.087, 222.464)
 rotation = -2.39285
 scale = Vector2(15.97, 15.97)
 shape = SubResource("RectangleShape2D_iouwn")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="SL Wall"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Level/SL Wall"]
 position = Vector2(-137, 411.65)
 scale = Vector2(15.97, 15.97)
 shape = SubResource("RectangleShape2D_phqfl")
 
-[node name="SR Wall" type="StaticBody2D" parent="."]
+[node name="SR Wall" type="StaticBody2D" parent="Level"]
 position = Vector2(1297, 123)
 
-[node name="Sprite2D" type="Sprite2D" parent="SR Wall"]
+[node name="Sprite2D" type="Sprite2D" parent="Level/SR Wall"]
 modulate = Color(0.370364, 0.370365, 0.370364, 1)
 position = Vector2(-1357, -134)
 rotation = -0.785398
@@ -105,32 +94,32 @@ scale = Vector2(2.47559, 1043.68)
 skew = 0.785398
 texture = SubResource("GradientTexture1D_mjhdu")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SR Wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/SR Wall"]
 position = Vector2(-1257.29, 218.713)
 rotation = -0.785398
 scale = Vector2(15.97, 15.97)
 shape = SubResource("RectangleShape2D_dw7ok")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="SR Wall"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Level/SR Wall"]
 position = Vector2(-1315, 406)
 scale = Vector2(15.97, 15.97)
 shape = SubResource("RectangleShape2D_phqfl")
 
-[node name="US Wall" type="StaticBody2D" parent="."]
+[node name="US Wall" type="StaticBody2D" parent="Level"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="US Wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/US Wall"]
 position = Vector2(531.5, 245.475)
 scale = Vector2(15.395, 15.395)
 shape = SubResource("RectangleShape2D_ch2hs")
 
-[node name="DS Wall" type="StaticBody2D" parent="."]
+[node name="DS Wall" type="StaticBody2D" parent="Level"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DS Wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/DS Wall"]
 position = Vector2(551.25, 665.5)
 scale = Vector2(15.395, 15.395)
 shape = SubResource("RectangleShape2D_6gi78")
 
-[node name="DustParticles" parent="." instance=ExtResource("5_ufjxf")]
+[node name="DustParticles" parent="Level" instance=ExtResource("5_ufjxf")]
 position = Vector2(521, 107)
 speed_scale = 0.08
 spread = 92.27
@@ -141,9 +130,39 @@ angular_velocity_min = 29.09
 angular_velocity_max = 72.73
 tangential_accel_min = 6.96
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_amjd8")
+[node name="Player" parent="." node_paths=PackedStringArray("healthLabel") instance=ExtResource("3_2c5p4")]
+position = Vector2(572, 309)
+healthLabel = NodePath("Camera2D/Control/Label")
 
-[node name="TriangleEnemy" parent="." instance=ExtResource("6_gkb5p")]
-position = Vector2(87, 356)
-skew = -0.176295
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(12.5953, -9.01965)
+scale = Vector2(1, 1.00437)
+skew = 0.0659086
+position_smoothing_enabled = true
+
+[node name="Control" type="Control" parent="Player/Camera2D"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -604.395
+offset_top = -299.325
+offset_right = -564.395
+offset_bottom = -259.325
+
+[node name="Label" type="Label" parent="Player/Camera2D/Control"]
+layout_mode = 0
+offset_left = 52.0
+offset_right = 92.0
+offset_bottom = 23.0
+text = "HEALTH: "
+
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
+position = Vector2(0.793884, 4.00531)
+scale = Vector2(1, 1.00265)
+skew = 0.0514286
+color = Color(1, 0.690196, 0.596078, 1)
+shadow_enabled = true
+texture = ExtResource("4_mk4og")
+
+[node name="BaseEnemy" parent="." instance=ExtResource("6_xuwpu")]
+position = Vector2(60, 427)
+spriteTexture = ExtResource("7_loafi")

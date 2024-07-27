@@ -1,9 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://oxv10erglgqu"]
+[gd_scene load_steps=25 format=3 uid="uid://4c2lso8rgrhy"]
 
-[ext_resource type="Script" path="res://Enemies/TriangleEnemy.gd" id="1_sd5tk"]
-[ext_resource type="Texture2D" uid="uid://8xle78ra7yj" path="res://Assets/Sprites/Air_Enemy.png" id="2_2y7q8"]
-[ext_resource type="PackedScene" uid="uid://g3w2ryv5n8cy" path="res://Particles/IceParticles.tscn" id="3_c3dna"]
-[ext_resource type="PackedScene" uid="uid://ck45al0bcafha" path="res://Components/Health/HealthComponent.tscn" id="4_3saxq"]
+[ext_resource type="Script" path="res://Enemies/BaseEnemy.gd" id="1_uwgj7"]
+[ext_resource type="PackedScene" uid="uid://g3w2ryv5n8cy" path="res://Particles/IceParticles.tscn" id="3_ro7sd"]
+[ext_resource type="PackedScene" uid="uid://ck45al0bcafha" path="res://Components/Health/HealthComponent.tscn" id="4_73w64"]
 
 [sub_resource type="Animation" id="Animation_vqq7g"]
 resource_name = "Attack"
@@ -213,15 +212,17 @@ size = Vector2(22, 29)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s75in"]
 size = Vector2(19, 13)
 
-[node name="TriangleEnemy" type="CharacterBody2D" groups=["AirEnemy", "Enemy"]]
+[node name="BaseEnemy" type="CharacterBody2D" groups=["AirEnemy", "Enemy"]]
 collision_layer = 2
 collision_mask = 3
-script = ExtResource("1_sd5tk")
+script = ExtResource("1_uwgj7")
+start_health = null
+speed = null
+damage = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.015, 0.015)
-skew = 0.102562
-texture = ExtResource("2_2y7q8")
+skew = 0.00595697
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -239,7 +240,7 @@ position = Vector2(-2.11758e-22, 0)
 scale = Vector2(2.43, 2.43)
 shape = SubResource("CircleShape2D_mklwf")
 
-[node name="IceParticles" parent="." instance=ExtResource("3_c3dna")]
+[node name="IceParticles" parent="." instance=ExtResource("3_ro7sd")]
 position = Vector2(-27.8032, -6.00323)
 
 [node name="PlayerDetector" type="Area2D" parent="."]
@@ -259,7 +260,7 @@ monitorable = false
 position = Vector2(14.5, -2.5)
 shape = SubResource("RectangleShape2D_s75in")
 
-[node name="HealthComponent" parent="." instance=ExtResource("4_3saxq")]
+[node name="HealthComponent" parent="." instance=ExtResource("4_73w64")]
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cnuw2epdkrvpr"]
+[gd_scene load_steps=28 format=3 uid="uid://cnuw2epdkrvpr"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_01663"]
 [ext_resource type="Texture2D" uid="uid://b5v7k6gmi6gs8" path="res://Assets/Sprites/Hero.png" id="2_wioyg"]
@@ -47,7 +47,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_nee5o"]
 resource_name = "IceAttack"
-length = 0.5
+length = 0.65
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -83,6 +83,23 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_yh1ep"]
@@ -254,7 +271,7 @@ _data = {
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8x40s"]
-animation = &"Attack"
+animation = &"IceAttack"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n11a5"]
 animation = &"Idle"
@@ -316,13 +333,17 @@ graph_offset = Vector2(-62, 50)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mklwf"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_je3py"]
+size = Vector2(51, 51)
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 3
 script = ExtResource("1_01663")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 1.22384
+rotation = 0.638565
 scale = Vector2(0.015, 0.015)
-skew = -0.105623
+skew = 0.16437
 texture = ExtResource("2_wioyg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -345,3 +366,15 @@ shape = SubResource("CircleShape2D_mklwf")
 position = Vector2(0, 0)
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_6pu6g")]
+
+[node name="HitDetector" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetector"]
+position = Vector2(30.5, -3.5)
+shape = SubResource("RectangleShape2D_je3py")
+
+[connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]
