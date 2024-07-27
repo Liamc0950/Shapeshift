@@ -220,7 +220,7 @@ script = ExtResource("1_uwgj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.015, 0.015)
-skew = 0.0562035
+skew = 0.00714373
 texture = ExtResource("2_6oage")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

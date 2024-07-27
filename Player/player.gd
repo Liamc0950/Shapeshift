@@ -1,13 +1,14 @@
 extends CharacterBody2D
 
-enum DIRECTION{LEFT, RIGHT, UP, DOWN}
 
+enum ATTACK_TYPE{AIR, EARTH, WATER, FIRE}
 
 const SPEED = 350.0
 const JUMP_VELOCITY = -400.0
 const DAMAGE = 10.0
 
 @export var healthLabel:Label = null
+@export var attackLabel:Label = null
 
 @onready var anim_tree = $AnimationTree
 @onready var ice_particles = $IceParticles
@@ -21,9 +22,11 @@ const DAMAGE = 10.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var canAttack = true
+var currentAttackType = 0
 
 func _physics_process(delta):
-
+	
+	attackLabel.text = str(currentAttackType)
 
 	var direction = Vector2(
 				Input.get_action_strength("Right") - Input.get_action_strength("Left"),
@@ -43,7 +46,12 @@ func _physics_process(delta):
 	if direction:
 		var desired_rotation_y = atan2(-velocity.x, velocity.y)
 		hitDetector.rotation = deg_to_rad(rad_to_deg(desired_rotation_y) + 90)
-		print(velocity.x)
+		#$AirParticles.rotation = deg_to_rad(rad_to_deg(desired_rotation_y) + 90)
+		#$EarthParticles.rotation = deg_to_rad(rad_to_deg(desired_rotation_y) + 90)
+
+		anim_tree.set("parameters/AirAttack/blend_position", rad_to_deg(desired_rotation_y))
+		anim_tree.set("parameters/EarthAttack/blend_position", rad_to_deg(desired_rotation_y))
+		print(rad_to_deg(desired_rotation_y))
 		
 		if velocity.x <= 0:
 
@@ -67,20 +75,29 @@ func end_of_hit():
 
 func _air_attack():
 	print("AIR")
+	
+	#SET ATTACK TYPE
+	currentAttackType = ATTACK_TYPE.AIR
+
 	#START ANIMAITON
 	anim_tree.set("parameters/conditions/airAttack", true)
 		
 	#START PARTICLES
+	await get_tree().create_timer(0.1).timeout
 	$AirParticles.emitting = true
 	
 	#WAIT TO COMPLETE
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.4).timeout
 	
 	#END ANIMAITON
 	anim_tree.set("parameters/conditions/airAttack", false)
 
 func _earth_attack():
 	print("EARTH")
+	
+	#SET ATTACK TYPE
+	currentAttackType = ATTACK_TYPE.EARTH
+	
 	#START ANIMAITON
 	anim_tree.set("parameters/conditions/earthAttack", true)
 
@@ -96,10 +113,12 @@ func _earth_attack():
 	
 func _water_attack():
 	print("WATER")
-		
+	
+	#SET ATTACK TYPE
+	currentAttackType = ATTACK_TYPE.WATER
+
 	#START ANIMAITON
 	anim_tree.set("parameters/conditions/waterAttack", true)
-
 		
 	#START PARTICLES
 	$WaterParticles.emitting = true
@@ -112,6 +131,10 @@ func _water_attack():
 	
 func _fire_attack():
 	print("FIRE")
+	
+	#SET ATTACK TYPE
+	currentAttackType = ATTACK_TYPE.FIRE
+	
 	#START ANIMAITON
 	anim_tree.set("parameters/conditions/fireAttack", true)
 
@@ -134,4 +157,4 @@ func take_damage(damage:int):
 
 func _on_hit_detector_body_entered(body):
 	if body.is_in_group("Enemy"):
-		body.take_damage(DAMAGE)
+		body.take_damage(DAMAGE, currentAttackType)

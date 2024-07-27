@@ -115,7 +115,7 @@ shape = SubResource("RectangleShape2D_ch2hs")
 [node name="DS Wall" type="StaticBody2D" parent="Level"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/DS Wall"]
-position = Vector2(551.25, 665.5)
+position = Vector2(551.25, 768)
 scale = Vector2(15.395, 15.395)
 shape = SubResource("RectangleShape2D_6gi78")
 
@@ -130,9 +130,10 @@ angular_velocity_min = 29.09
 angular_velocity_max = 72.73
 tangential_accel_min = 6.96
 
-[node name="Player" parent="." node_paths=PackedStringArray("healthLabel") instance=ExtResource("3_2c5p4")]
+[node name="Player" parent="." node_paths=PackedStringArray("healthLabel", "attackLabel") instance=ExtResource("3_2c5p4")]
 position = Vector2(569, 423)
 healthLabel = NodePath("Camera2D/Control/Label")
+attackLabel = NodePath("Camera2D/Control/Label2")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(12.5953, -9.01965)
@@ -155,11 +156,18 @@ offset_right = 92.0
 offset_bottom = 23.0
 text = "HEALTH: "
 
+[node name="Label2" type="Label" parent="Player/Camera2D/Control"]
+layout_mode = 0
+offset_left = 53.6501
+offset_top = 24.9454
+offset_right = 123.65
+offset_bottom = 47.9454
+text = "HEALTH: "
+
 [node name="PointLight2D" type="PointLight2D" parent="Player"]
 position = Vector2(0.793884, 4.00531)
 scale = Vector2(1, 1.00265)
-skew = 0.0514286
-color = Color(1, 0.690196, 0.596078, 1)
+color = Color(0.850922, 0.755083, 0.711118, 1)
 shadow_enabled = true
 texture = ExtResource("4_mk4og")
 

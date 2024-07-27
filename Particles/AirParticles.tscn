@@ -4,10 +4,9 @@
 [ext_resource type="Script" path="res://Particles/AirParticles.gd" id="2_duhxc"]
 
 [sub_resource type="Gradient" id="Gradient_gosou"]
-colors = PackedColorArray(0.443137, 0.933333, 0.866667, 0.396078, 1, 1, 1, 1)
+colors = PackedColorArray(0.0371081, 0.480021, 0.555242, 0.396078, 1, 1, 1, 1)
 
 [node name="AirParticles" type="CPUParticles2D"]
-position = Vector2(3, 1)
 emitting = false
 amount = 128
 lifetime = 0.4
@@ -16,6 +15,7 @@ speed_scale = 1.5
 explosiveness = 0.45
 randomness = 1.0
 lifetime_randomness = 0.25
+local_coords = true
 texture = ExtResource("1_6gax4")
 emission_shape = 3
 emission_rect_extents = Vector2(4, 15)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cnuw2epdkrvpr"]
+[gd_scene load_steps=58 format=3 uid="uid://cnuw2epdkrvpr"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_01663"]
 [ext_resource type="Texture2D" uid="uid://b5v7k6gmi6gs8" path="res://Assets/Sprites/Hero.png" id="2_wioyg"]
@@ -140,10 +140,10 @@ tracks/2/path = NodePath("Sprite2D:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0.015, 0.015)]
+"values": [Vector2(0.015, 0.015), Vector2(0.015, 0.015)]
 }
 
 [sub_resource type="Animation" id="Animation_wxuas"]
@@ -571,12 +571,682 @@ tracks/5/keys = {
 "values": [Vector2(0, 0), Vector2(56, 0), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_m37jr"]
+resource_name = "AirAttack_Left"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.383972, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-60, -2), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AirParticles:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-56, 2.08165e-12), Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AirParticles:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.14159]
+}
+
+[sub_resource type="Animation" id="Animation_o2bin"]
+resource_name = "AirAttack_Up"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.383972, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, -30), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AirParticles:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, -30), Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AirParticles:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+
+[sub_resource type="Animation" id="Animation_0rcah"]
+resource_name = "AirAttack_Down"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.383972, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, 30), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AirParticles:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, 30), Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AirParticles:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+
+[sub_resource type="Animation" id="Animation_nvuyk"]
+resource_name = "EarthAttack_Down"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.383972, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, 50), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("EarthParticles:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, 50), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("EarthParticles:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+
+[sub_resource type="Animation" id="Animation_fo7no"]
+resource_name = "EarthAttack_Left"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.383972, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-60, -2), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("EarthParticles:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-50, 2.08165e-12), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("EarthParticles:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.14159]
+}
+
+[sub_resource type="Animation" id="Animation_maqlu"]
+resource_name = "EarthAttack_Right"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.387463, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(60, -2), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("EarthParticles:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(50, 2.08165e-12), Vector2(2.08165e-12, 2.08165e-12)]
+}
+
+[sub_resource type="Animation" id="Animation_2b123"]
+resource_name = "EarthAttack_Up"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.383972, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, -50), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AirParticles:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, -50), Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AirParticles:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("EarthParticles:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, -60), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("EarthParticles:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qcmg1"]
 _data = {
 "AirAttack": SubResource("Animation_m5fuk"),
+"AirAttack_Down": SubResource("Animation_0rcah"),
+"AirAttack_Left": SubResource("Animation_m37jr"),
 "AirAttack_Right": SubResource("Animation_lyult"),
+"AirAttack_Up": SubResource("Animation_o2bin"),
 "Attack": SubResource("Animation_vqq7g"),
 "EarthAttack": SubResource("Animation_fto7n"),
+"EarthAttack_Down": SubResource("Animation_nvuyk"),
+"EarthAttack_Left": SubResource("Animation_fo7no"),
+"EarthAttack_Right": SubResource("Animation_maqlu"),
+"EarthAttack_Up": SubResource("Animation_2b123"),
 "FireAttack": SubResource("Animation_hewsq"),
 "IceAttack": SubResource("Animation_nee5o"),
 "Idle": SubResource("Animation_yh1ep"),
@@ -587,23 +1257,59 @@ _data = {
 "WaterAttack": SubResource("Animation_i5tpt")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8x40s"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7f0wm"]
+animation = &"AirAttack_Down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_brbyf"]
+animation = &"AirAttack_Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5yagx"]
 animation = &"AirAttack_Right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h0kls"]
-animation = &"EarthAttack"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o2syw"]
+animation = &"AirAttack_Up"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_jeiym"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_7f0wm")
+blend_point_0/pos = 0.8
+blend_point_1/node = SubResource("AnimationNodeAnimation_brbyf")
+blend_point_1/pos = 89.6
+blend_point_2/node = SubResource("AnimationNodeAnimation_5yagx")
+blend_point_2/pos = -90.0
+blend_point_3/node = SubResource("AnimationNodeAnimation_o2syw")
+blend_point_3/pos = -178.6
+min_space = -180.0
+max_space = 90.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f65a7"]
+animation = &"EarthAttack_Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_voqx4"]
+animation = &"EarthAttack_Down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uk56o"]
+animation = &"EarthAttack_Right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6i1m5"]
+animation = &"EarthAttack_Up"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_tvdms"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_f65a7")
+blend_point_0/pos = 89.8
+blend_point_1/node = SubResource("AnimationNodeAnimation_voqx4")
+blend_point_1/pos = 0.2
+blend_point_2/node = SubResource("AnimationNodeAnimation_uk56o")
+blend_point_2/pos = -90.0
+blend_point_3/node = SubResource("AnimationNodeAnimation_6i1m5")
+blend_point_3/pos = -179.2
+min_space = -180.0
+max_space = 90.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_524et"]
 animation = &"FireAttack"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n11a5"]
 animation = &"Idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5b7qy"]
-animation = &"Run"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rwhsm"]
-animation = &"Run"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l2108"]
 animation = &"Walk"
@@ -620,18 +1326,14 @@ animation = &"Walk_Down"
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_d331l"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_n11a5")
 blend_point_0/pos = Vector2(0.5, 4.8)
-blend_point_1/node = SubResource("AnimationNodeAnimation_5b7qy")
-blend_point_1/pos = Vector2(0.5, 593.7)
-blend_point_2/node = SubResource("AnimationNodeAnimation_rwhsm")
-blend_point_2/pos = Vector2(598.6, 9.5)
-blend_point_3/node = SubResource("AnimationNodeAnimation_l2108")
-blend_point_3/pos = Vector2(300.5, 0)
-blend_point_4/node = SubResource("AnimationNodeAnimation_1kk20")
-blend_point_4/pos = Vector2(-0.5, 298.7)
-blend_point_5/node = SubResource("AnimationNodeAnimation_3ky02")
-blend_point_5/pos = Vector2(-300.5, 7.2)
-blend_point_6/node = SubResource("AnimationNodeAnimation_e2j44")
-blend_point_6/pos = Vector2(1, -300)
+blend_point_1/node = SubResource("AnimationNodeAnimation_l2108")
+blend_point_1/pos = Vector2(300.5, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_1kk20")
+blend_point_2/pos = Vector2(-0.5, 298.7)
+blend_point_3/node = SubResource("AnimationNodeAnimation_3ky02")
+blend_point_3/pos = Vector2(-300.5, 7.2)
+blend_point_4/node = SubResource("AnimationNodeAnimation_e2j44")
+blend_point_4/pos = Vector2(1, -300)
 min_space = Vector2(-600, -600)
 max_space = Vector2(600, 600)
 
@@ -639,18 +1341,6 @@ max_space = Vector2(600, 600)
 animation = &"WaterAttack"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dt7n0"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p8lo2"]
-advance_mode = 2
-advance_condition = &"airAttack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4q2io"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3g58r"]
-switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vs3a0"]
@@ -661,10 +1351,6 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jp8fo"]
-advance_mode = 2
-advance_condition = &"earthAttack"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4f2wg"]
 advance_mode = 2
 advance_condition = &"waterAttack"
@@ -673,19 +1359,35 @@ advance_condition = &"waterAttack"
 advance_mode = 2
 advance_condition = &"fireAttack"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2avne"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6i1vn"]
+advance_mode = 2
+advance_condition = &"airAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e2iok"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cfvbt"]
+advance_mode = 2
+advance_condition = &"earthAttack"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3puar"]
-states/AirAttack/node = SubResource("AnimationNodeAnimation_8x40s")
-states/AirAttack/position = Vector2(330, 216)
-states/EarthAttack/node = SubResource("AnimationNodeAnimation_h0kls")
-states/EarthAttack/position = Vector2(511, 216)
+states/AirAttack/node = SubResource("AnimationNodeBlendSpace1D_jeiym")
+states/AirAttack/position = Vector2(287, 216)
+states/EarthAttack/node = SubResource("AnimationNodeBlendSpace1D_tvdms")
+states/EarthAttack/position = Vector2(507, 216)
 states/FireAttack/node = SubResource("AnimationNodeAnimation_524et")
-states/FireAttack/position = Vector2(795, 202)
+states/FireAttack/position = Vector2(866, 216)
 states/Move/node = SubResource("AnimationNodeBlendSpace2D_d331l")
 states/Move/position = Vector2(523, 100)
 states/WaterAttack/node = SubResource("AnimationNodeAnimation_st8uo")
-states/WaterAttack/position = Vector2(649, 220)
-transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_dt7n0"), "Move", "AirAttack", SubResource("AnimationNodeStateMachineTransition_p8lo2"), "AirAttack", "Move", SubResource("AnimationNodeStateMachineTransition_4q2io"), "EarthAttack", "Move", SubResource("AnimationNodeStateMachineTransition_3g58r"), "WaterAttack", "Move", SubResource("AnimationNodeStateMachineTransition_vs3a0"), "FireAttack", "Move", SubResource("AnimationNodeStateMachineTransition_1nfhy"), "Move", "EarthAttack", SubResource("AnimationNodeStateMachineTransition_jp8fo"), "Move", "WaterAttack", SubResource("AnimationNodeStateMachineTransition_4f2wg"), "Move", "FireAttack", SubResource("AnimationNodeStateMachineTransition_5le4c")]
-graph_offset = Vector2(52, 56)
+states/WaterAttack/position = Vector2(682, 216)
+transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_dt7n0"), "WaterAttack", "Move", SubResource("AnimationNodeStateMachineTransition_vs3a0"), "FireAttack", "Move", SubResource("AnimationNodeStateMachineTransition_1nfhy"), "Move", "WaterAttack", SubResource("AnimationNodeStateMachineTransition_4f2wg"), "Move", "FireAttack", SubResource("AnimationNodeStateMachineTransition_5le4c"), "AirAttack", "Move", SubResource("AnimationNodeStateMachineTransition_2avne"), "Move", "AirAttack", SubResource("AnimationNodeStateMachineTransition_6i1vn"), "EarthAttack", "Move", SubResource("AnimationNodeStateMachineTransition_e2iok"), "Move", "EarthAttack", SubResource("AnimationNodeStateMachineTransition_cfvbt")]
+graph_offset = Vector2(82, 87)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mklwf"]
 
@@ -697,9 +1399,9 @@ collision_mask = 3
 script = ExtResource("1_01663")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 0.54317
+rotation = 1.21822
 scale = Vector2(0.015, 0.015)
-skew = 0.134569
+skew = 0.091921
 texture = ExtResource("2_wioyg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -714,6 +1416,8 @@ parameters/conditions/airAttack = false
 parameters/conditions/earthAttack = false
 parameters/conditions/fireAttack = false
 parameters/conditions/waterAttack = false
+parameters/AirAttack/blend_position = 0.0
+parameters/EarthAttack/blend_position = 0
 parameters/Move/blend_position = Vector2(-9.59998, -44.934)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -734,17 +1438,13 @@ position = Vector2(30.5, -3.5)
 shape = SubResource("RectangleShape2D_je3py")
 
 [node name="AirParticles" parent="." instance=ExtResource("4_qvapk")]
-position = Vector2(0, 0)
 
 [node name="EarthParticles" parent="." instance=ExtResource("5_tpxhb")]
-visible = false
 
 [node name="FireParticles" parent="." instance=ExtResource("7_o8pk7")]
-visible = false
 position = Vector2(6, 2)
 
 [node name="WaterParticles" parent="." instance=ExtResource("6_4rbf2")]
-visible = false
 emitting = false
 one_shot = true
 

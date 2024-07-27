@@ -2,6 +2,10 @@ extends CharacterBody2D
 
 
 enum ENEMY_TYPES{TRIANGLE, SQUARE, DIAMOND, CIRCLE}
+enum ATTACK_TYPE{AIR, EARTH, WATER, FIRE}
+
+var receive_attack_type = null
+
 @export var type: ENEMY_TYPES = 0
 
 
@@ -35,21 +39,25 @@ func _ready():
 			health_component.health = 10
 			speed = 100
 			damage = 5.0
+			receive_attack_type = ATTACK_TYPE.EARTH
 		ENEMY_TYPES.SQUARE:
 			$Sprite2D.texture = ResourceLoader.load("res://Assets/Sprites/Earth_Enemy.png")
 			health_component.health = 20
 			speed = 85
 			damage = 5.0
+			receive_attack_type = ATTACK_TYPE.AIR
 		ENEMY_TYPES.CIRCLE:
 			$Sprite2D.texture = ResourceLoader.load("res://Assets/Sprites/Water_Enemy.png")
 			health_component.health = 15
 			speed = 90
 			damage = 5.0
+			receive_attack_type = ATTACK_TYPE.FIRE
 		ENEMY_TYPES.DIAMOND:
 			$Sprite2D.texture = ResourceLoader.load("res://Assets/Sprites/Fire_Enemy.png")
 			health_component.health = 10
 			speed = 110
 			damage = 5.0
+			receive_attack_type = ATTACK_TYPE.WATER
 			
 
 
@@ -96,12 +104,13 @@ func end_of_hit():
 	#await get_tree().create_timer(1).timeout
 
 
-func take_damage(damage:int):
-	health_component.remove_health(damage)
-	##COLOR FX
-	sprite.modulate = (Color.RED)
-	await get_tree().create_timer(0.1).timeout
-	sprite.modulate = Color(1,1,1)
+func take_damage(damage:int, attack_type:ATTACK_TYPE):
+	if attack_type == receive_attack_type:
+		health_component.remove_health(damage)
+		##COLOR FX
+		sprite.modulate = (Color.RED)
+		await get_tree().create_timer(0.1).timeout
+		sprite.modulate = Color(1,1,1)
 	
 func _on_player_detector_body_entered(body):
 	attacking = true
