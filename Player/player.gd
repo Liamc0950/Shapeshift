@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+enum DIRECTION{LEFT, RIGHT, UP, DOWN}
+
 
 const SPEED = 350.0
 const JUMP_VELOCITY = -400.0
@@ -28,15 +30,25 @@ func _physics_process(delta):
 				Input.get_action_strength("Down") - Input.get_action_strength("Up")
 				).normalized()
 
-	if Input.is_action_just_pressed("IceAttack"):
-		_ice_attack()
-
-
-
+	if Input.is_action_just_pressed("AirAttack"):
+		_air_attack()
+	if Input.is_action_just_pressed("EarthAttack"):
+		_earth_attack()
+	if Input.is_action_just_pressed("WaterAttack"):
+		_water_attack()
+	if Input.is_action_just_pressed("FireAttack"):
+		_fire_attack()
+		
 	#Change rotatation
 	if direction:
 		var desired_rotation_y = atan2(-velocity.x, velocity.y)
 		hitDetector.rotation = deg_to_rad(rad_to_deg(desired_rotation_y) + 90)
+		print(velocity.x)
+		
+		if velocity.x <= 0:
+
+			sprite.scale = -sprite.scale
+		
 		
 	velocity = direction * SPEED
 	anim_tree.set("parameters/Move/blend_position", velocity)
@@ -53,21 +65,65 @@ func hit():
 func end_of_hit():
 	$HitDetector.monitoring = false
 
-func _ice_attack():
+func _air_attack():
+	print("AIR")
 	#START ANIMAITON
-	anim_tree.set("parameters/conditions/iceAttack", true)
-
+	anim_tree.set("parameters/conditions/airAttack", true)
 		
 	#START PARTICLES
-	ice_particles.emitting = true
+	$AirParticles.emitting = true
 	
 	#WAIT TO COMPLETE
 	await get_tree().create_timer(0.5).timeout
 	
 	#END ANIMAITON
-	anim_tree.set("parameters/conditions/iceAttack", false)
+	anim_tree.set("parameters/conditions/airAttack", false)
 
+func _earth_attack():
+	print("EARTH")
+	#START ANIMAITON
+	anim_tree.set("parameters/conditions/earthAttack", true)
+
+		
+	#START PARTICLES
+	$EarthParticles.emitting = true
 	
+	#WAIT TO COMPLETE
+	await get_tree().create_timer(0.5).timeout
+	
+	#END ANIMAITON
+	anim_tree.set("parameters/conditions/earthAttack", false)
+	
+func _water_attack():
+	print("WATER")
+		
+	#START ANIMAITON
+	anim_tree.set("parameters/conditions/waterAttack", true)
+
+		
+	#START PARTICLES
+	$WaterParticles.emitting = true
+	
+	#WAIT TO COMPLETE
+	await get_tree().create_timer(0.5).timeout
+	
+	#END ANIMAITON
+	anim_tree.set("parameters/conditions/waterAttack", false)
+	
+func _fire_attack():
+	print("FIRE")
+	#START ANIMAITON
+	anim_tree.set("parameters/conditions/fireAttack", true)
+
+		
+	#START PARTICLES
+	$FireParticles.emitting = true
+	
+	#WAIT TO COMPLETE
+	await get_tree().create_timer(0.5).timeout
+	
+	#END ANIMAITON
+	anim_tree.set("parameters/conditions/fireAttack", false)
 
 func take_damage(damage:int):
 	health_component.remove_health(damage)

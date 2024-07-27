@@ -131,7 +131,7 @@ angular_velocity_max = 72.73
 tangential_accel_min = 6.96
 
 [node name="Player" parent="." node_paths=PackedStringArray("healthLabel") instance=ExtResource("3_2c5p4")]
-position = Vector2(572, 309)
+position = Vector2(569, 423)
 healthLabel = NodePath("Camera2D/Control/Label")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -163,6 +163,21 @@ color = Color(1, 0.690196, 0.596078, 1)
 shadow_enabled = true
 texture = ExtResource("4_mk4og")
 
-[node name="BaseEnemy" parent="." instance=ExtResource("6_xuwpu")]
+[node name="TriangleEnemy" parent="." instance=ExtResource("6_xuwpu")]
 position = Vector2(60, 427)
+spriteTexture = ExtResource("7_loafi")
+
+[node name="CircleEnemy" parent="." instance=ExtResource("6_xuwpu")]
+position = Vector2(574, 608)
+type = 3
+spriteTexture = ExtResource("7_loafi")
+
+[node name="SquareEnemy" parent="." instance=ExtResource("6_xuwpu")]
+position = Vector2(1083, 427)
+type = 1
+spriteTexture = ExtResource("7_loafi")
+
+[node name="DiamondEnemy" parent="." instance=ExtResource("6_xuwpu")]
+position = Vector2(559, 297)
+type = 2
 spriteTexture = ExtResource("7_loafi")

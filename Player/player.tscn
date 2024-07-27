@@ -1,9 +1,12 @@
-[gd_scene load_steps=28 format=3 uid="uid://cnuw2epdkrvpr"]
+[gd_scene load_steps=45 format=3 uid="uid://cnuw2epdkrvpr"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_01663"]
 [ext_resource type="Texture2D" uid="uid://b5v7k6gmi6gs8" path="res://Assets/Sprites/Hero.png" id="2_wioyg"]
-[ext_resource type="PackedScene" uid="uid://g3w2ryv5n8cy" path="res://Particles/IceParticles.tscn" id="3_2cxk7"]
 [ext_resource type="PackedScene" uid="uid://ck45al0bcafha" path="res://Components/Health/HealthComponent.tscn" id="4_6pu6g"]
+[ext_resource type="PackedScene" uid="uid://cfkt4skiwf5tu" path="res://Particles/AirParticles.tscn" id="4_qvapk"]
+[ext_resource type="PackedScene" uid="uid://c27yuc041eysr" path="res://Particles/EarthParticles.tscn" id="5_tpxhb"]
+[ext_resource type="PackedScene" uid="uid://xvfbqb11ko1" path="res://Particles/WaterParticles.tscn" id="6_4rbf2"]
+[ext_resource type="PackedScene" uid="uid://cfnyl60c8q3j1" path="res://Particles/FireParticles.tscn" id="7_o8pk7"]
 
 [sub_resource type="Animation" id="Animation_vqq7g"]
 resource_name = "Attack"
@@ -259,19 +262,339 @@ tracks/1/keys = {
 "values": [Vector2(0.015, 0.015)]
 }
 
+[sub_resource type="Animation" id="Animation_m5fuk"]
+resource_name = "AirAttack"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.387463, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_fto7n"]
+resource_name = "EarthAttack"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.387463, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_i5tpt"]
+resource_name = "WaterAttack"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.387463, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_hewsq"]
+resource_name = "FireAttack"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.387463, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_lyult"]
+resource_name = "AirAttack_Right"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.387463, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.015, 0.015), Vector2(0.019, 0.019), Vector2(0.015, 0.015)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hit"
+}, {
+"args": [],
+"method": &"end_of_hit"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(60, -2), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AirParticles:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(56, 0), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qcmg1"]
 _data = {
+"AirAttack": SubResource("Animation_m5fuk"),
+"AirAttack_Right": SubResource("Animation_lyult"),
 "Attack": SubResource("Animation_vqq7g"),
+"EarthAttack": SubResource("Animation_fto7n"),
+"FireAttack": SubResource("Animation_hewsq"),
 "IceAttack": SubResource("Animation_nee5o"),
 "Idle": SubResource("Animation_yh1ep"),
 "Run": SubResource("Animation_wxuas"),
 "Walk": SubResource("Animation_lxmx0"),
 "Walk_Down": SubResource("Animation_edda8"),
-"Walk_Left": SubResource("Animation_bnrhk")
+"Walk_Left": SubResource("Animation_bnrhk"),
+"WaterAttack": SubResource("Animation_i5tpt")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8x40s"]
-animation = &"IceAttack"
+animation = &"AirAttack_Right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h0kls"]
+animation = &"EarthAttack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_524et"]
+animation = &"FireAttack"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n11a5"]
 animation = &"Idle"
@@ -312,24 +635,57 @@ blend_point_6/pos = Vector2(1, -300)
 min_space = Vector2(-600, -600)
 max_space = Vector2(600, 600)
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_st8uo"]
+animation = &"WaterAttack"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dt7n0"]
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p8lo2"]
 advance_mode = 2
-advance_condition = &"iceAttack"
+advance_condition = &"airAttack"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4q2io"]
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3g58r"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vs3a0"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1nfhy"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jp8fo"]
+advance_mode = 2
+advance_condition = &"earthAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4f2wg"]
+advance_mode = 2
+advance_condition = &"waterAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5le4c"]
+advance_mode = 2
+advance_condition = &"fireAttack"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3puar"]
-states/IceAttack/node = SubResource("AnimationNodeAnimation_8x40s")
-states/IceAttack/position = Vector2(523, 176)
+states/AirAttack/node = SubResource("AnimationNodeAnimation_8x40s")
+states/AirAttack/position = Vector2(330, 216)
+states/EarthAttack/node = SubResource("AnimationNodeAnimation_h0kls")
+states/EarthAttack/position = Vector2(511, 216)
+states/FireAttack/node = SubResource("AnimationNodeAnimation_524et")
+states/FireAttack/position = Vector2(795, 202)
 states/Move/node = SubResource("AnimationNodeBlendSpace2D_d331l")
 states/Move/position = Vector2(523, 100)
-transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_dt7n0"), "Move", "IceAttack", SubResource("AnimationNodeStateMachineTransition_p8lo2"), "IceAttack", "Move", SubResource("AnimationNodeStateMachineTransition_4q2io")]
-graph_offset = Vector2(-62, 50)
+states/WaterAttack/node = SubResource("AnimationNodeAnimation_st8uo")
+states/WaterAttack/position = Vector2(649, 220)
+transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_dt7n0"), "Move", "AirAttack", SubResource("AnimationNodeStateMachineTransition_p8lo2"), "AirAttack", "Move", SubResource("AnimationNodeStateMachineTransition_4q2io"), "EarthAttack", "Move", SubResource("AnimationNodeStateMachineTransition_3g58r"), "WaterAttack", "Move", SubResource("AnimationNodeStateMachineTransition_vs3a0"), "FireAttack", "Move", SubResource("AnimationNodeStateMachineTransition_1nfhy"), "Move", "EarthAttack", SubResource("AnimationNodeStateMachineTransition_jp8fo"), "Move", "WaterAttack", SubResource("AnimationNodeStateMachineTransition_4f2wg"), "Move", "FireAttack", SubResource("AnimationNodeStateMachineTransition_5le4c")]
+graph_offset = Vector2(52, 56)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mklwf"]
 
@@ -341,9 +697,9 @@ collision_mask = 3
 script = ExtResource("1_01663")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 0.638565
+rotation = 0.54317
 scale = Vector2(0.015, 0.015)
-skew = 0.16437
+skew = 0.134569
 texture = ExtResource("2_wioyg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -354,16 +710,16 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_3puar")
 anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/iceAttack = false
+parameters/conditions/airAttack = false
+parameters/conditions/earthAttack = false
+parameters/conditions/fireAttack = false
+parameters/conditions/waterAttack = false
 parameters/Move/blend_position = Vector2(-9.59998, -44.934)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2.11758e-22, 0)
 scale = Vector2(2.43, 2.43)
 shape = SubResource("CircleShape2D_mklwf")
-
-[node name="IceParticles" parent="." instance=ExtResource("3_2cxk7")]
-position = Vector2(0, 0)
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_6pu6g")]
 
@@ -376,5 +732,20 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetector"]
 position = Vector2(30.5, -3.5)
 shape = SubResource("RectangleShape2D_je3py")
+
+[node name="AirParticles" parent="." instance=ExtResource("4_qvapk")]
+position = Vector2(0, 0)
+
+[node name="EarthParticles" parent="." instance=ExtResource("5_tpxhb")]
+visible = false
+
+[node name="FireParticles" parent="." instance=ExtResource("7_o8pk7")]
+visible = false
+position = Vector2(6, 2)
+
+[node name="WaterParticles" parent="." instance=ExtResource("6_4rbf2")]
+visible = false
+emitting = false
+one_shot = true
 
 [connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]

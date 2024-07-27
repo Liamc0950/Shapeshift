@@ -1,9 +1,15 @@
 extends CharacterBody2D
 
+
+enum ENEMY_TYPES{TRIANGLE, SQUARE, DIAMOND, CIRCLE}
+@export var type: ENEMY_TYPES = 0
+
+
 @export var spriteTexture:Texture2D
 @export var start_health = 50.0
 @export var speed = 100.0
 @export var damage = 5.0
+
 
 @onready var anim_tree = $AnimationTree
 @onready var ice_particles = $IceParticles
@@ -21,9 +27,31 @@ var target_position
 
 var attacking = false
 
-func ready():
-	$Sprite2D.texture = spriteTexture
-	health_component.health = start_health
+	
+func _ready():
+	match type:
+		ENEMY_TYPES.TRIANGLE:
+			$Sprite2D.texture = ResourceLoader.load("res://Assets/Sprites/Air_Enemy.png")
+			health_component.health = 10
+			speed = 100
+			damage = 5.0
+		ENEMY_TYPES.SQUARE:
+			$Sprite2D.texture = ResourceLoader.load("res://Assets/Sprites/Earth_Enemy.png")
+			health_component.health = 20
+			speed = 85
+			damage = 5.0
+		ENEMY_TYPES.CIRCLE:
+			$Sprite2D.texture = ResourceLoader.load("res://Assets/Sprites/Water_Enemy.png")
+			health_component.health = 15
+			speed = 90
+			damage = 5.0
+		ENEMY_TYPES.DIAMOND:
+			$Sprite2D.texture = ResourceLoader.load("res://Assets/Sprites/Fire_Enemy.png")
+			health_component.health = 10
+			speed = 110
+			damage = 5.0
+			
+
 
 func _physics_process(delta):
 	

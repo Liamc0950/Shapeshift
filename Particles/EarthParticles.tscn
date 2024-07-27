@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://c27yuc041eysr"]
+
+[ext_resource type="Texture2D" uid="uid://bs24gqis46o0k" path="res://Assets/Sprites/Particle.png" id="1_syg68"]
+[ext_resource type="Script" path="res://Particles/EarthParticles.gd" id="2_w16xg"]
+
+[sub_resource type="Gradient" id="Gradient_gosou"]
+colors = PackedColorArray(0.944937, 0.654203, 0.526509, 0.396078, 0.438028, 0.150567, 0.00245264, 1)
+
+[node name="EarthParticles" type="CPUParticles2D"]
+position = Vector2(3, 1)
+emitting = false
+amount = 128
+lifetime = 0.45
+one_shot = true
+explosiveness = 0.45
+randomness = 1.0
+lifetime_randomness = 0.25
+texture = ExtResource("1_syg68")
+emission_shape = 1
+emission_sphere_radius = 50.0
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+radial_accel_min = 0.35
+radial_accel_max = 58.94
+scale_amount_min = 0.01
+scale_amount_max = 0.02
+color_ramp = SubResource("Gradient_gosou")
+script = ExtResource("2_w16xg")
