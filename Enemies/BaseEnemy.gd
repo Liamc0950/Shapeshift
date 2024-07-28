@@ -34,6 +34,8 @@ var spawnerManager:SpawnerManager = null
 	
 func _ready():
 	
+	#global_position = Vector2(-10000, 10000)
+	
 	spawnerManager = get_tree().get_first_node_in_group("Level")
 
 	$ProgressBar.max_value = health_component.health
@@ -113,7 +115,8 @@ func _set_up_enemy():
 			damage = 20.0
 			receive_attack_type = ATTACK_TYPE.WATER
 			attackIcon.rotation_degrees = 180
-			
+		
+	print(speed)
 
 
 func setType(type):

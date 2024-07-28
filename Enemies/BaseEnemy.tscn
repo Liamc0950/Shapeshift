@@ -70,6 +70,34 @@ tracks/3/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_jg2u4"]
+resource_name = "Death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rotateable/Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rotateable/Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false]
+}
+
 [sub_resource type="Animation" id="Animation_kubj7"]
 resource_name = "IceAttack"
 length = 0.5
@@ -196,34 +224,6 @@ tracks/0/keys = {
 "values": [0.0, 6.28319]
 }
 
-[sub_resource type="Animation" id="Animation_jg2u4"]
-resource_name = "Death"
-length = 0.7
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Rotateable/Sprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0, 0, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rotateable/Sprite2D:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, false, true, false, true, false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qcmg1"]
 _data = {
 "Attack": SubResource("Animation_vqq7g"),
@@ -305,6 +305,7 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-62, 50)
 
 [node name="BaseEnemy" type="CharacterBody2D" groups=["AirEnemy", "Enemy"]]
+position = Vector2(-10000, 2.08165e-12)
 collision_layer = 24
 collision_mask = 26
 script = ExtResource("1_uwgj7")
@@ -318,7 +319,7 @@ shape = SubResource("CircleShape2D_mklwf")
 
 [node name="Sprite2D" type="Sprite2D" parent="Rotateable"]
 scale = Vector2(0.015, 0.015)
-skew = 0.0146361
+skew = 0.0928893
 texture = ExtResource("2_6oage")
 
 [node name="PlayerDetector" type="Area2D" parent="Rotateable"]
@@ -365,6 +366,7 @@ offset_left = -36.0
 offset_top = -14.0
 offset_right = -32.0
 offset_bottom = 13.0
+metadata/_edit_use_anchors_ = true
 
 [node name="ChromaticAberration" parent="." instance=ExtResource("5_5bh3l")]
 

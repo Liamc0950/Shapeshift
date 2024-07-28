@@ -37,7 +37,7 @@ _data = {
 }
 
 [node name="Node2D" type="Node2D"]
-skew = 0.0156279
+skew = -0.0106742
 script = ExtResource("1_evs1s")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]

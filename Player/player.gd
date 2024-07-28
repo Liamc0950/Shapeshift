@@ -17,6 +17,7 @@ const DAMAGE = 10.0
 
 @onready var hitDetector = $HitDetector
 @onready var healthBar = get_tree().get_first_node_in_group("HealthBar")
+@onready var gameOverOverlay = get_tree().get_first_node_in_group("GameOverOverlay")
 @onready var gameOverLabel = get_tree().get_first_node_in_group("GameOver")
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -25,6 +26,10 @@ var canAttack = true
 var currentAttackType = 0
 
 func _physics_process(delta):
+	
+
+	$GlobalPosition.text = str(global_position)
+	$Position.text = str(position)
 	
 	healthBar.value = health_component.health
 	
@@ -68,6 +73,7 @@ func _physics_process(delta):
 	if health_component.health <= 0:
 		$Glitch.visible = true
 		gameOverLabel.visible = true
+		gameOverOverlay.visible = true
 		get_tree().paused = true
 
 		#queue_free()
