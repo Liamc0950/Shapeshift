@@ -11,7 +11,6 @@ const DAMAGE = 10.0
 @export var attackLabel:Label = null
 
 @onready var anim_tree = $AnimationTree
-@onready var ice_particles = $IceParticles
 @onready var health_component = $HealthComponent
 @onready var sprite = $Sprite2D
 
@@ -19,66 +18,71 @@ const DAMAGE = 10.0
 @onready var healthBar = get_tree().get_first_node_in_group("HealthBar")
 @onready var gameOverOverlay = get_tree().get_first_node_in_group("GameOverOverlay")
 @onready var gameOverLabel = get_tree().get_first_node_in_group("GameOver")
+@onready var restartButton = get_tree().get_first_node_in_group("RestartButton")
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var canAttack = true
 var currentAttackType = 0
+var paused = false
 
 func _physics_process(delta):
 	
+	if !paused:
 
-	$GlobalPosition.text = str(global_position)
-	$Position.text = str(position)
-	
-	healthBar.value = health_component.health
-	
-	#attackLabel.text = str(currentAttackType)
-
-	var direction = Vector2(
-				Input.get_action_strength("Right") - Input.get_action_strength("Left"),
-				Input.get_action_strength("Down") - Input.get_action_strength("Up")
-				).normalized()
-
-	if Input.is_action_just_pressed("AirAttack"):
-		_air_attack()
-	if Input.is_action_just_pressed("EarthAttack"):
-		_earth_attack()
-	if Input.is_action_just_pressed("WaterAttack"):
-		_water_attack()
-	if Input.is_action_just_pressed("FireAttack"):
-		_fire_attack()
+		$GlobalPosition.text = str(global_position)
+		$Position.text = str(position)
 		
-	#Change rotatation
-	if direction:
-		var desired_rotation_y = atan2(-velocity.x, velocity.y)
-		hitDetector.rotation = deg_to_rad(rad_to_deg(desired_rotation_y) + 90)
-		#$AirParticles.rotation = deg_to_rad(rad_to_deg(desired_rotation_y) + 90)
-		#$EarthParticles.rotation = deg_to_rad(rad_to_deg(desired_rotation_y) + 90)
-
-		anim_tree.set("parameters/AirAttack/blend_position", rad_to_deg(desired_rotation_y))
-		anim_tree.set("parameters/EarthAttack/blend_position", rad_to_deg(desired_rotation_y))
-
+		healthBar.value = health_component.health
 		
-		if velocity.x <= 0:
+		#attackLabel.text = str(currentAttackType)
 
-			sprite.scale = -sprite.scale
-		
-		
-	velocity = direction * SPEED
-	anim_tree.set("parameters/Move/blend_position", velocity)
-	
-	#healthLabel.text = "HEALTH: " + str(health_component.health)
-	
-	if health_component.health <= 0:
-		$Glitch.visible = true
-		gameOverLabel.visible = true
-		gameOverOverlay.visible = true
-		get_tree().paused = true
+		var direction = Vector2(
+					Input.get_action_strength("Right") - Input.get_action_strength("Left"),
+					Input.get_action_strength("Down") - Input.get_action_strength("Up")
+					).normalized()
 
-		#queue_free()
-	
-	move_and_slide()
+		if Input.is_action_just_pressed("AirAttack"):
+			_air_attack()
+		if Input.is_action_just_pressed("EarthAttack"):
+			_earth_attack()
+		if Input.is_action_just_pressed("WaterAttack"):
+			_water_attack()
+		if Input.is_action_just_pressed("FireAttack"):
+			_fire_attack()
+			
+		#Change rotatation
+		if direction:
+			var desired_rotation_y = atan2(-velocity.x, velocity.y)
+			hitDetector.rotation = deg_to_rad(rad_to_deg(desired_rotation_y) + 90)
+			#$AirParticles.rotation = deg_to_rad(rad_to_deg(desired_rotation_y) + 90)
+			#$EarthParticles.rotation = deg_to_rad(rad_to_deg(desired_rotation_y) + 90)
+
+			anim_tree.set("parameters/AirAttack/blend_position", rad_to_deg(desired_rotation_y))
+			anim_tree.set("parameters/EarthAttack/blend_position", rad_to_deg(desired_rotation_y))
+
+			
+			if velocity.x <= 0:
+
+				sprite.scale = -sprite.scale
+			
+			
+		velocity = direction * SPEED
+		anim_tree.set("parameters/Move/blend_position", velocity)
+		
+		#healthLabel.text = "HEALTH: " + str(health_component.health)
+		
+		if health_component.health <= 0:
+			#$Glitch.visible = true
+			paused = true
+			gameOverLabel.visible = true
+			gameOverOverlay.visible = true
+			restartButton.visible = true
+			#get_tree().paused = true
+
+			#queue_free()
+		
+		move_and_slide()
 
 func hit():
 	print("HIT START")
