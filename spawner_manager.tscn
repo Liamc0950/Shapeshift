@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://brls1wnx0nx2n"]
+
+[ext_resource type="Script" path="res://spawner_manager.gd" id="1_o6b5k"]
+
+[node name="SpawnerManager" type="Node2D"]
+script = ExtResource("1_o6b5k")
+
+[node name="BetweenWaves" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="BetweenEnemies" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="BetweenWaves" to="." method="_on_between_waves_timeout"]
+[connection signal="timeout" from="BetweenEnemies" to="." method="_on_between_enemies_timeout"]

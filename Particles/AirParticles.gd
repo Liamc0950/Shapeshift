@@ -1,3 +1,3 @@
 extends CPUParticles2D
 
-class_name EarthParticles
+class_name AirParticles

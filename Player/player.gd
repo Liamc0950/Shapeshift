@@ -16,8 +16,8 @@ const DAMAGE = 10.0
 @onready var sprite = $Sprite2D
 
 @onready var hitDetector = $HitDetector
-
-
+@onready var healthBar = get_tree().get_first_node_in_group("HealthBar")
+@onready var gameOverLabel = get_tree().get_first_node_in_group("GameOver")
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -26,7 +26,9 @@ var currentAttackType = 0
 
 func _physics_process(delta):
 	
-	attackLabel.text = str(currentAttackType)
+	healthBar.value = health_component.health
+	
+	#attackLabel.text = str(currentAttackType)
 
 	var direction = Vector2(
 				Input.get_action_strength("Right") - Input.get_action_strength("Left"),
@@ -51,7 +53,7 @@ func _physics_process(delta):
 
 		anim_tree.set("parameters/AirAttack/blend_position", rad_to_deg(desired_rotation_y))
 		anim_tree.set("parameters/EarthAttack/blend_position", rad_to_deg(desired_rotation_y))
-		print(rad_to_deg(desired_rotation_y))
+
 		
 		if velocity.x <= 0:
 
@@ -61,9 +63,14 @@ func _physics_process(delta):
 	velocity = direction * SPEED
 	anim_tree.set("parameters/Move/blend_position", velocity)
 	
-	healthLabel.text = "HEALTH: " + str(health_component.health)
+	#healthLabel.text = "HEALTH: " + str(health_component.health)
 	
+	if health_component.health <= 0:
+		$Glitch.visible = true
+		gameOverLabel.visible = true
+		get_tree().paused = true
 
+		#queue_free()
 	
 	move_and_slide()
 
@@ -76,6 +83,7 @@ func end_of_hit():
 func _air_attack():
 	print("AIR")
 	
+	_camera_attack()
 	#SET ATTACK TYPE
 	currentAttackType = ATTACK_TYPE.AIR
 
@@ -84,7 +92,7 @@ func _air_attack():
 		
 	#START PARTICLES
 	await get_tree().create_timer(0.1).timeout
-	$AirParticles.emitting = true
+	$Particles/AirParticles.emitting = true
 	
 	#WAIT TO COMPLETE
 	await get_tree().create_timer(0.4).timeout
@@ -94,66 +102,74 @@ func _air_attack():
 
 func _earth_attack():
 	print("EARTH")
-	
+	_camera_attack()
 	#SET ATTACK TYPE
 	currentAttackType = ATTACK_TYPE.EARTH
 	
 	#START ANIMAITON
-	anim_tree.set("parameters/conditions/earthAttack", true)
+	anim_tree.set("parameters/conditions/airAttack", true)
 
 		
 	#START PARTICLES
-	$EarthParticles.emitting = true
+	$Particles/EarthParticles.emitting = true
 	
 	#WAIT TO COMPLETE
 	await get_tree().create_timer(0.5).timeout
 	
 	#END ANIMAITON
-	anim_tree.set("parameters/conditions/earthAttack", false)
+	anim_tree.set("parameters/conditions/airAttack", false)
 	
 func _water_attack():
 	print("WATER")
-	
+	_camera_attack()
 	#SET ATTACK TYPE
 	currentAttackType = ATTACK_TYPE.WATER
 
 	#START ANIMAITON
-	anim_tree.set("parameters/conditions/waterAttack", true)
+	anim_tree.set("parameters/conditions/airAttack", true)
 		
 	#START PARTICLES
-	$WaterParticles.emitting = true
+	$Particles/WaterParticles.emitting = true
 	
 	#WAIT TO COMPLETE
 	await get_tree().create_timer(0.5).timeout
 	
 	#END ANIMAITON
-	anim_tree.set("parameters/conditions/waterAttack", false)
+	anim_tree.set("parameters/conditions/airAttack", false)
 	
 func _fire_attack():
 	print("FIRE")
-	
+	_camera_attack()
 	#SET ATTACK TYPE
 	currentAttackType = ATTACK_TYPE.FIRE
 	
 	#START ANIMAITON
-	anim_tree.set("parameters/conditions/fireAttack", true)
+	anim_tree.set("parameters/conditions/airAttack", true)
 
 		
 	#START PARTICLES
-	$FireParticles.emitting = true
+	$Particles/FireParticles.emitting = true
 	
 	#WAIT TO COMPLETE
 	await get_tree().create_timer(0.5).timeout
 	
 	#END ANIMAITON
-	anim_tree.set("parameters/conditions/fireAttack", false)
+	anim_tree.set("parameters/conditions/airAttack", false)
 
+func _camera_attack():
+	$Camera2D/AnimationTree.set("parameters/conditions/cameraAttack", true)
+func stop_camera_attack():
+	$Camera2D/AnimationTree.set("parameters/conditions/cameraAttack", false)
+	
 func take_damage(damage:int):
 	health_component.remove_health(damage)
 	##COLOR FX
 	sprite.modulate = (Color.RED)
-	await get_tree().create_timer(0.1).timeout
+	$Glitch.visible = true
+	await get_tree().create_timer(0.15).timeout
+	$Glitch.visible = false
 	sprite.modulate = Color(1,1,1)
+	_camera_attack()
 
 func _on_hit_detector_body_entered(body):
 	if body.is_in_group("Enemy"):

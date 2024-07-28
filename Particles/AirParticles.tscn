@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://cfkt4skiwf5tu"]
 
-[ext_resource type="Texture2D" uid="uid://btg3wrn1pfype" path="res://Assets/Sprites/ParticleLinear.png" id="1_6gax4"]
+[ext_resource type="Texture2D" uid="uid://bs24gqis46o0k" path="res://Assets/Sprites/Particle.png" id="1_5tn0h"]
 [ext_resource type="Script" path="res://Particles/AirParticles.gd" id="2_duhxc"]
 
 [sub_resource type="Gradient" id="Gradient_gosou"]
-colors = PackedColorArray(0.0371081, 0.480021, 0.555242, 0.396078, 1, 1, 1, 1)
+colors = PackedColorArray(0.691871, 0.93922, 0.997768, 0.396078, 1, 1, 1, 1)
 
 [node name="AirParticles" type="CPUParticles2D"]
 emitting = false
@@ -15,14 +15,13 @@ speed_scale = 1.5
 explosiveness = 0.45
 randomness = 1.0
 lifetime_randomness = 0.25
-local_coords = true
-texture = ExtResource("1_6gax4")
+texture = ExtResource("1_5tn0h")
 emission_shape = 3
 emission_rect_extents = Vector2(4, 15)
-direction = Vector2(-1, 2.08165e-12)
+direction = Vector2(1, 2.08165e-12)
 spread = 5.0
 gravity = Vector2(2.08165e-12, 10)
-initial_velocity_min = 200.0
+initial_velocity_min = 300.0
 initial_velocity_max = 400.0
 radial_accel_min = 0.35
 radial_accel_max = 58.94

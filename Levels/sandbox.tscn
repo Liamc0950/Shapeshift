@@ -1,24 +1,38 @@
-[gd_scene load_steps=16 format=3 uid="uid://bl1a6edlueqj6"]
+[gd_scene load_steps=40 format=3 uid="uid://bl1a6edlueqj6"]
 
-[ext_resource type="Texture2D" uid="uid://cwtb6bd2ilnn7" path="res://Assets/Background/GridFloor.png" id="1_ms72j"]
+[ext_resource type="Script" path="res://Levels/sandbox.gd" id="1_j3qom"]
 [ext_resource type="Texture2D" uid="uid://bclwwmxqsgmkj" path="res://Assets/Background/Background.png" id="2_kh2rr"]
 [ext_resource type="PackedScene" uid="uid://cnuw2epdkrvpr" path="res://Player/player.tscn" id="3_2c5p4"]
+[ext_resource type="PackedScene" uid="uid://csqc74i8pexyj" path="res://FractalTree.tscn" id="3_6w6bm"]
+[ext_resource type="Texture2D" uid="uid://cqueyjwug3gay" path="res://Assets/Background/griddy.png" id="3_hh6hv"]
+[ext_resource type="Texture2D" uid="uid://bubvuixf5tpkl" path="res://Assets/Background/Sun.png" id="4_e1252"]
 [ext_resource type="Texture2D" uid="uid://bs24gqis46o0k" path="res://Assets/Sprites/Particle.png" id="4_mk4og"]
+[ext_resource type="Texture2D" uid="uid://bckdm1fktxv13" path="res://Assets/Background/backyrOUND.png" id="5_fm68y"]
 [ext_resource type="PackedScene" uid="uid://cmyqh4brqp82n" path="res://Particles/dust_particles.tscn" id="5_ufjxf"]
-[ext_resource type="PackedScene" uid="uid://4c2lso8rgrhy" path="res://Enemies/BaseEnemy.tscn" id="6_xuwpu"]
-[ext_resource type="Texture2D" uid="uid://blhnokimfcmcy" path="res://Assets/Sprites/Fire_Enemy.png" id="7_loafi"]
+[ext_resource type="FontFile" uid="uid://bueun01am53cd" path="res://Assets/Sticky Pops.otf" id="8_q1lg2"]
+[ext_resource type="PackedScene" uid="uid://k8tnsut5pohj" path="res://addons/post_processing/node/children/ascii.tscn" id="9_10p33"]
+[ext_resource type="PackedScene" uid="uid://cr0x70env2qwo" path="res://spawner.tscn" id="9_xkm8t"]
+[ext_resource type="PackedScene" uid="uid://brls1wnx0nx2n" path="res://spawner_manager.tscn" id="10_0tnci"]
+[ext_resource type="PackedScene" uid="uid://crm7gskny246i" path="res://addons/post_processing/node/children/vignette.tscn" id="14_02bof"]
+[ext_resource type="PackedScene" uid="uid://b2fkqs44w2304" path="res://addons/post_processing/node/children/grain.tscn" id="15_hiauq"]
 
 [sub_resource type="Environment" id="Environment_amjd8"]
 background_mode = 3
 glow_enabled = true
 glow_levels/5 = 0.0
-glow_intensity = 1.65
+glow_intensity = 3.0
 glow_bloom = 0.02
 glow_blend_mode = 1
 glow_hdr_threshold = 1.5
+fog_density = 1.0
 adjustment_enabled = true
-adjustment_contrast = 1.25
-adjustment_saturation = 1.35
+adjustment_contrast = 1.5
+adjustment_saturation = 1.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xck0d"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f85kd"]
+load_path = "res://.godot/imported/Sun.png-2338a22322a6723e01a2a2cd196faa7f.ctex"
 
 [sub_resource type="Gradient" id="Gradient_wqypk"]
 colors = PackedColorArray(0.341176, 0.290196, 0.886275, 1, 0.65098, 0, 0.792157, 1)
@@ -27,95 +41,257 @@ colors = PackedColorArray(0.341176, 0.290196, 0.886275, 1, 0.65098, 0, 0.792157,
 gradient = SubResource("Gradient_wqypk")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iouwn"]
-size = Vector2(21.4175, 5.92303)
+size = Vector2(67.9357, 5.92303)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_phqfl"]
 size = Vector2(5.25985, 26.3431)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dw7ok"]
-size = Vector2(22.7585, 6.23644)
+size = Vector2(60.5268, 6.23644)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ch2hs"]
-size = Vector2(65.151, 4.47873)
+size = Vector2(84.443, 4.47873)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6gi78"]
-size = Vector2(93.2446, 8.24943)
+size = Vector2(153.102, 8.24943)
+
+[sub_resource type="Animation" id="Animation_e7f7x"]
+resource_name = "AttackShake"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 2.14355, 1.62451, 1, 1),
+"update": 0,
+"values": [0.0, 0.00872665, -0.00872665, 0.00872665, 3.48787e-16]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop_camera_attack"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_cwp7y"]
+resource_name = "AttackShake_2"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.48787e-16]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1fecl"]
+_data = {
+"AttackShake": SubResource("Animation_e7f7x"),
+"Idle": SubResource("Animation_cwp7y")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s01p2"]
+animation = &"AttackShake"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wmrmm"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pkhyb"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sdg7i"]
+advance_mode = 2
+advance_condition = &"cameraAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eg72l"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mfoem"]
+states/AttackShake/node = SubResource("AnimationNodeAnimation_s01p2")
+states/AttackShake/position = Vector2(565, 112)
+states/Idle/node = SubResource("AnimationNodeAnimation_wmrmm")
+states/Idle/position = Vector2(378, 112)
+states/Start/position = Vector2(219, 112)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_pkhyb"), "Idle", "AttackShake", SubResource("AnimationNodeStateMachineTransition_sdg7i"), "AttackShake", "Idle", SubResource("AnimationNodeStateMachineTransition_eg72l")]
+
+[sub_resource type="Theme" id="Theme_mki8y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ic11c"]
+bg_color = Color(0.0392573, 0.352277, 0.446439, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iwdy6"]
+bg_color = Color(0.653286, 0.141223, 0.674663, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1k88p"]
+font = ExtResource("8_q1lg2")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_qsyjk"]
+font = ExtResource("8_q1lg2")
+font_size = 200
 
 [node name="Sandbox" type="Node2D"]
+position = Vector2(445, 34)
+script = ExtResource("1_j3qom")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_amjd8")
 
 [node name="Level" type="Node2D" parent="."]
 
-[node name="Floor" type="Sprite2D" parent="Level"]
-modulate = Color(0.370364, 0.370365, 0.370364, 1)
-position = Vector2(571, 456)
-scale = Vector2(0.327083, 0.25)
-texture = ExtResource("1_ms72j")
+[node name="BG" type="Sprite2D" parent="Level"]
+position = Vector2(653, 517)
+scale = Vector2(2.436, 3.422)
+texture = ExtResource("5_fm68y")
+
+[node name="Grid" type="Sprite2D" parent="Level"]
+position = Vector2(565, 700)
+scale = Vector2(1.255, 1.255)
+texture = ExtResource("3_hh6hv")
+
+[node name="Sun" type="Sprite2D" parent="Level"]
+z_index = 1
+position = Vector2(560, 17)
+scale = Vector2(0.508671, 0.508671)
+texture = ExtResource("4_e1252")
+
+[node name="Sun2" type="Sprite2D" parent="Level"]
+self_modulate = Color(1.6, 1.6, 1.6, 0.294118)
+z_index = 1
+material = SubResource("ShaderMaterial_xck0d")
+position = Vector2(560, 270.657)
+scale = Vector2(-0.509, -0.509)
+texture = SubResource("CompressedTexture2D_f85kd")
 
 [node name="Sky" type="Sprite2D" parent="Level"]
-modulate = Color(0.404511, 0.404511, 0.404511, 1)
+visible = false
+modulate = Color(0.255659, 0.255659, 0.255659, 1)
 self_modulate = Color(2, 2, 2, 1)
-position = Vector2(593, -73)
-scale = Vector2(0.333489, 0.383373)
+position = Vector2(566, -273)
+scale = Vector2(0.496, 0.503)
 texture = ExtResource("2_kh2rr")
+
+[node name="Node2D" parent="Level" instance=ExtResource("3_6w6bm")]
+z_index = 1
+position = Vector2(144, 280)
+rotation = -2.35619
+scale = Vector2(0.605, 0.605)
+skew = -0.00572292
+
+[node name="Node2D2" parent="Level" instance=ExtResource("3_6w6bm")]
+z_index = 1
+position = Vector2(950, 295)
+rotation = -2.35619
+scale = Vector2(0.605, 0.605)
+skew = -0.00572292
+
+[node name="Node2D3" parent="Level" instance=ExtResource("3_6w6bm")]
+modulate = Color(0.670588, 1, 1, 1)
+position = Vector2(338, 258)
+rotation = -2.35619
+scale = Vector2(0.475, 0.475)
+skew = -0.00572292
+
+[node name="Node2D4" parent="Level" instance=ExtResource("3_6w6bm")]
+modulate = Color(0.670588, 1, 1, 1)
+position = Vector2(801, 271)
+rotation = -2.35619
+scale = Vector2(0.475, 0.475)
+skew = -0.00572292
+
+[node name="Node2D5" parent="Level" instance=ExtResource("3_6w6bm")]
+modulate = Color(0.670588, 1, 1, 1)
+position = Vector2(1203, 256)
+rotation = -2.35619
+scale = Vector2(0.475, 0.475)
+skew = -0.00572292
+
+[node name="Node2D6" parent="Level" instance=ExtResource("3_6w6bm")]
+modulate = Color(0.670588, 1, 1, 1)
+position = Vector2(-84, 254)
+rotation = -2.35619
+scale = Vector2(0.475, 0.475)
+skew = -0.00572292
 
 [node name="SL Wall" type="StaticBody2D" parent="Level"]
 position = Vector2(1297, 123)
+collision_layer = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Level/SL Wall"]
-modulate = Color(0.505344, 0.505344, 0.505344, 1)
-position = Vector2(-175, -114)
+visible = false
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(222.385, 128.944)
 rotation = -2.35619
-scale = Vector2(1.52958, 822.491)
+scale = Vector2(4.21374, 822.491)
 skew = -0.785398
 texture = SubResource("GradientTexture1D_mjhdu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/SL Wall"]
-position = Vector2(-180.087, 222.464)
+position = Vector2(246.459, 475.316)
 rotation = -2.39285
 scale = Vector2(15.97, 15.97)
 shape = SubResource("RectangleShape2D_iouwn")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Level/SL Wall"]
-position = Vector2(-137, 411.65)
+position = Vector2(261, 651)
 scale = Vector2(15.97, 15.97)
 shape = SubResource("RectangleShape2D_phqfl")
 
 [node name="SR Wall" type="StaticBody2D" parent="Level"]
 position = Vector2(1297, 123)
+collision_layer = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Level/SR Wall"]
-modulate = Color(0.370364, 0.370365, 0.370364, 1)
-position = Vector2(-1357, -134)
+visible = false
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(-1710.11, -3.26734)
 rotation = -0.785398
-scale = Vector2(2.47559, 1043.68)
+scale = Vector2(4.05363, 1043.68)
 skew = 0.785398
 texture = SubResource("GradientTexture1D_mjhdu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/SR Wall"]
-position = Vector2(-1257.29, 218.713)
+position = Vector2(-1680.82, 419.867)
 rotation = -0.785398
 scale = Vector2(15.97, 15.97)
 shape = SubResource("RectangleShape2D_dw7ok")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Level/SR Wall"]
-position = Vector2(-1315, 406)
+position = Vector2(-1683, 653)
 scale = Vector2(15.97, 15.97)
 shape = SubResource("RectangleShape2D_phqfl")
 
 [node name="US Wall" type="StaticBody2D" parent="Level"]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/US Wall"]
-position = Vector2(531.5, 245.475)
+position = Vector2(507, 245.475)
 scale = Vector2(15.395, 15.395)
 shape = SubResource("RectangleShape2D_ch2hs")
 
 [node name="DS Wall" type="StaticBody2D" parent="Level"]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/DS Wall"]
-position = Vector2(551.25, 768)
+position = Vector2(611, 777)
 scale = Vector2(15.395, 15.395)
 shape = SubResource("RectangleShape2D_6gi78")
 
@@ -130,62 +306,97 @@ angular_velocity_min = 29.09
 angular_velocity_max = 72.73
 tangential_accel_min = 6.96
 
-[node name="Player" parent="." node_paths=PackedStringArray("healthLabel", "attackLabel") instance=ExtResource("3_2c5p4")]
+[node name="Player" parent="." instance=ExtResource("3_2c5p4")]
 position = Vector2(569, 423)
-healthLabel = NodePath("Camera2D/Control/Label")
-attackLabel = NodePath("Camera2D/Control/Label2")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(12.5953, -9.01965)
 scale = Vector2(1, 1.00437)
-skew = 0.0659086
+ignore_rotation = false
 position_smoothing_enabled = true
 
-[node name="Control" type="Control" parent="Player/Camera2D"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -604.395
-offset_top = -299.325
-offset_right = -564.395
-offset_bottom = -259.325
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Camera2D"]
+libraries = {
+"": SubResource("AnimationLibrary_1fecl")
+}
 
-[node name="Label" type="Label" parent="Player/Camera2D/Control"]
-layout_mode = 0
-offset_left = 52.0
-offset_right = 92.0
-offset_bottom = 23.0
-text = "HEALTH: "
-
-[node name="Label2" type="Label" parent="Player/Camera2D/Control"]
-layout_mode = 0
-offset_left = 53.6501
-offset_top = 24.9454
-offset_right = 123.65
-offset_bottom = 47.9454
-text = "HEALTH: "
+[node name="AnimationTree" type="AnimationTree" parent="Player/Camera2D"]
+tree_root = SubResource("AnimationNodeStateMachine_mfoem")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/cameraAttack = false
 
 [node name="PointLight2D" type="PointLight2D" parent="Player"]
-position = Vector2(0.793884, 4.00531)
+position = Vector2(0.793884, -63.3375)
 scale = Vector2(1, 1.00265)
 color = Color(0.850922, 0.755083, 0.711118, 1)
+energy = 0.5
 shadow_enabled = true
 texture = ExtResource("4_mk4og")
 
-[node name="TriangleEnemy" parent="." instance=ExtResource("6_xuwpu")]
-position = Vector2(60, 427)
-spriteTexture = ExtResource("7_loafi")
+[node name="SpawnerManager" parent="." node_paths=PackedStringArray("spawnPointLeft", "spawnPointRight", "spawnPointUp", "spawnPointDown") instance=ExtResource("10_0tnci")]
+position = Vector2(549, 498)
+spawnPointLeft = NodePath("Spawner")
+spawnPointRight = NodePath("SpawnerRight")
+spawnPointUp = NodePath("SpawnerUp")
+spawnPointDown = NodePath("SpawnerDown")
 
-[node name="CircleEnemy" parent="." instance=ExtResource("6_xuwpu")]
-position = Vector2(574, 608)
-type = 3
-spriteTexture = ExtResource("7_loafi")
+[node name="Spawner" parent="SpawnerManager" instance=ExtResource("9_xkm8t")]
+z_index = 10
+position = Vector2(-1015, -10)
 
-[node name="SquareEnemy" parent="." instance=ExtResource("6_xuwpu")]
-position = Vector2(1083, 427)
-type = 1
-spriteTexture = ExtResource("7_loafi")
+[node name="SpawnerRight" parent="SpawnerManager" instance=ExtResource("9_xkm8t")]
+z_index = 10
+position = Vector2(1114, -19)
 
-[node name="DiamondEnemy" parent="." instance=ExtResource("6_xuwpu")]
-position = Vector2(559, 297)
-type = 2
-spriteTexture = ExtResource("7_loafi")
+[node name="SpawnerUp" parent="SpawnerManager" instance=ExtResource("9_xkm8t")]
+z_index = 10
+position = Vector2(0, -376)
+
+[node name="SpawnerDown" parent="SpawnerManager" instance=ExtResource("9_xkm8t")]
+z_index = 10
+position = Vector2(0, 493)
+
+[node name="Ascii" parent="." instance=ExtResource("9_10p33")]
+
+[node name="Vignette" parent="." instance=ExtResource("14_02bof")]
+
+[node name="Grain" parent="." instance=ExtResource("15_hiauq")]
+visible = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer" groups=["HealthBar"]]
+offset_left = 370.0
+offset_top = 88.0
+offset_right = 374.0
+offset_bottom = 115.0
+rotation = 1.5708
+scale = Vector2(5, 5)
+theme = SubResource("Theme_mki8y")
+theme_override_colors/font_color = Color(0.733005, 0.733005, 0.733005, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_ic11c")
+theme_override_styles/fill = SubResource("StyleBoxFlat_iwdy6")
+value = 100.0
+fill_mode = 3
+show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 126.0
+offset_top = 75.0
+offset_right = 223.0
+offset_bottom = 112.0
+text = "HEALTH
+"
+label_settings = SubResource("LabelSettings_1k88p")
+
+[node name="GameOver" type="Label" parent="CanvasLayer" groups=["GameOver"]]
+visible = false
+custom_minimum_size = Vector2(1920, 1080)
+offset_left = 63.0
+offset_top = -91.0
+offset_right = 1983.0
+offset_bottom = 989.0
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_qsyjk")
+horizontal_alignment = 1
+vertical_alignment = 1

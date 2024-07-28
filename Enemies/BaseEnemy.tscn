@@ -1,16 +1,25 @@
-[gd_scene load_steps=26 format=3 uid="uid://4c2lso8rgrhy"]
+[gd_scene load_steps=31 format=3 uid="uid://4c2lso8rgrhy"]
 
 [ext_resource type="Script" path="res://Enemies/BaseEnemy.gd" id="1_uwgj7"]
 [ext_resource type="Texture2D" uid="uid://b1d3etr04medy" path="res://Assets/Sprites/Earth_Enemy.png" id="2_6oage"]
-[ext_resource type="PackedScene" uid="uid://g3w2ryv5n8cy" path="res://Particles/IceParticles.tscn" id="3_ro7sd"]
 [ext_resource type="PackedScene" uid="uid://ck45al0bcafha" path="res://Components/Health/HealthComponent.tscn" id="4_73w64"]
+[ext_resource type="Texture2D" uid="uid://2qrx0qgdhvjy" path="res://Assets/Sprites/right-arrow.png" id="5_3jx7t"]
+[ext_resource type="PackedScene" uid="uid://ccxkudlhbgmv7" path="res://addons/post_processing/node/children/ChromaticAberration.tscn" id="5_5bh3l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mklwf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tvib8"]
+size = Vector2(22, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s75in"]
+size = Vector2(25, 13)
 
 [sub_resource type="Animation" id="Animation_vqq7g"]
 resource_name = "Attack"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/path = NodePath("Rotateable/Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -36,6 +45,30 @@ tracks/1/keys = {
 "method": &"end_of_hit"
 }]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rotateable/Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Rotateable/Sprite2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_kubj7"]
 resource_name = "IceAttack"
@@ -43,7 +76,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/path = NodePath("Rotateable/Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -95,7 +128,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/path = NodePath("Rotateable/Sprite2D:skew")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -103,6 +136,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.188496, -0.101229, 0.101229, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rotateable/Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Rotateable/Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_wxuas"]
@@ -112,7 +169,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/path = NodePath("Rotateable/Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -129,7 +186,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/path = NodePath("Rotateable/Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -139,9 +196,38 @@ tracks/0/keys = {
 "values": [0.0, 6.28319]
 }
 
+[sub_resource type="Animation" id="Animation_jg2u4"]
+resource_name = "Death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rotateable/Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rotateable/Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qcmg1"]
 _data = {
 "Attack": SubResource("Animation_vqq7g"),
+"Death": SubResource("Animation_jg2u4"),
 "IceAttack": SubResource("Animation_kubj7"),
 "Idle": SubResource("Animation_yh1ep"),
 "Run": SubResource("Animation_wxuas"),
@@ -150,6 +236,9 @@ _data = {
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3hu7g"]
 animation = &"Attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_trsgh"]
+animation = &"Death"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iv13l"]
 animation = &"Idle"
@@ -194,34 +283,70 @@ advance_condition = &"attack"
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aksn2"]
+advance_mode = 2
+advance_condition = &"die"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_di0s3"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3puar"]
 states/Attack/node = SubResource("AnimationNodeAnimation_3hu7g")
-states/Attack/position = Vector2(350, 222)
+states/Attack/position = Vector2(337, 233)
+states/Death/node = SubResource("AnimationNodeAnimation_trsgh")
+states/Death/position = Vector2(500, 125)
 states/Idle/node = SubResource("AnimationNodeAnimation_iv13l")
 states/Idle/position = Vector2(337, 130)
 states/Move/node = SubResource("AnimationNodeBlendSpace2D_d331l")
-states/Move/position = Vector2(523, 100)
+states/Move/position = Vector2(732, 84)
 states/Start/position = Vector2(198, 125)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_duhf0"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_yamjp"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_f6qn2")]
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_duhf0"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_yamjp"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_f6qn2"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_aksn2"), "Death", "Idle", SubResource("AnimationNodeStateMachineTransition_di0s3")]
 graph_offset = Vector2(-62, 50)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mklwf"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tvib8"]
-size = Vector2(22, 29)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s75in"]
-size = Vector2(19, 13)
-
 [node name="BaseEnemy" type="CharacterBody2D" groups=["AirEnemy", "Enemy"]]
-collision_layer = 2
-collision_mask = 3
+collision_layer = 24
+collision_mask = 26
 script = ExtResource("1_uwgj7")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.11758e-22, 0)
+scale = Vector2(2.43, 2.43)
+shape = SubResource("CircleShape2D_mklwf")
+
+[node name="Rotateable" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Rotateable"]
 scale = Vector2(0.015, 0.015)
-skew = 0.00714373
+skew = 0.0146361
 texture = ExtResource("2_6oage")
+
+[node name="PlayerDetector" type="Area2D" parent="Rotateable"]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rotateable/PlayerDetector"]
+position = Vector2(17, -2.5)
+shape = SubResource("RectangleShape2D_tvib8")
+
+[node name="HitDetector" type="Area2D" parent="Rotateable"]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rotateable/HitDetector"]
+position = Vector2(17.5, -2.5)
+shape = SubResource("RectangleShape2D_s75in")
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_73w64")]
+
+[node name="AttackIcon" type="Node2D" parent="."]
+position = Vector2(-3.77341e-23, -30)
+scale = Vector2(0.05, 0.05)
+
+[node name="AttackIconSprite" type="Sprite2D" parent="AttackIcon"]
+texture = ExtResource("5_3jx7t")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -232,35 +357,17 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_3puar")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/attack = false
+parameters/conditions/die = false
 parameters/Move/blend_position = Vector2(0, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.11758e-22, 0)
-scale = Vector2(2.43, 2.43)
-shape = SubResource("CircleShape2D_mklwf")
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -36.0
+offset_top = -14.0
+offset_right = -32.0
+offset_bottom = 13.0
 
-[node name="IceParticles" parent="." instance=ExtResource("3_ro7sd")]
-position = Vector2(-27.8032, -6.00323)
+[node name="ChromaticAberration" parent="." instance=ExtResource("5_5bh3l")]
 
-[node name="PlayerDetector" type="Area2D" parent="."]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
-position = Vector2(17, -2.5)
-shape = SubResource("RectangleShape2D_tvib8")
-
-[node name="HitDetector" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 3
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitDetector"]
-position = Vector2(14.5, -2.5)
-shape = SubResource("RectangleShape2D_s75in")
-
-[node name="HealthComponent" parent="." instance=ExtResource("4_73w64")]
-
-[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
-[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]
-[connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]
+[connection signal="body_entered" from="Rotateable/PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="Rotateable/PlayerDetector" to="." method="_on_player_detector_body_exited"]
+[connection signal="body_entered" from="Rotateable/HitDetector" to="." method="_on_hit_detector_body_entered"]
